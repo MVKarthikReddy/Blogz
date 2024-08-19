@@ -1,9 +1,13 @@
 
 
-const Blog = () => {
-    return(
-        <div className="w-full h-full bg-white dark:bg-gray-800">
-            <div className="w-full mx-auto py-10 bg-white dark:bg-gray-800">
+import React from 'react'
+
+const Blogs = () => {
+  return (
+    <>
+        <div className="pt-28"></div>
+        <div className="w-full h-full bg-white dark:bg-gray-800 dark:bg-opacity-45">
+            <div className="w-full mx-auto py-10 bg-white dark:bg-gray-800 dark:bg-opacity-45">
                 <div className="w-[94%] mx-auto flex gap-1 items-center text-gray-500 sm:text-[12px] xs:text-[10px] font-semibold dark:text-gray-400">
                     <div>Blog</div>
                     <div className="font-semibold text-md">-</div>
@@ -30,7 +34,7 @@ const Blog = () => {
                     <h4 className="text-sm font-semibold text-gray-600 dark:text-gray-400">5 MIN READ</h4>
                 </div>
 
-                <div className="py-6 bg-white dark:bg-gray-800">
+                <div className="py-6 bg-white dark:bg-gray-800 dark:bg-opacity-45">
                     <div className="md:w-[80%] xs:w-[90%] mx-auto pt-4">
                         <p className="mx-auto text-md dark:text-gray-300">
                             In the world of CSS frameworks, there are plenty of contenders vying for your attention. But for me,
@@ -87,7 +91,8 @@ const Blog = () => {
 
             </div>
         </div>
-    )
+    </>
+  )
 }
 
-export default Blog
+export default Blogs

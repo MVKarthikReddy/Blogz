@@ -1,21 +1,22 @@
 import { useState } from 'react'
 import Header from './components/Header'
-import InitialContent from './components/InitialContent'
-import Main from './components/Main'
-import BlogPage from './components/BlogPage'
-import SearchContent from './components/SearchContent'
-import Blog from './components/Blog'
-
+import { Home } from './pages/Home';
+import { Routes, Route } from 'react-router-dom';
+import LoginNSignup from './components/LoginNSignup';
+import Blogs from './components/Blogs';
+// import {Blogs} from './components/Blogs'
 function App() {
 
   return (
     <>
       <Header />
-      <InitialContent />
-      <Main />
-      <SearchContent />
-      <BlogPage />
-      
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/signup" element={<LoginNSignup option={"signup"} />} />
+        <Route path="/signin" element={<LoginNSignup option={"signin"} />} />
+        <Route path="/blogs" element={<Blogs /> } />
+
+      </Routes>
     </>
   )
 }

@@ -1,5 +1,9 @@
+import { useNavigate } from 'react-router-dom';
 
 const InitialContent = () => {
+
+    const navigate = useNavigate()
+
     return(
         <>
             <div className="pt-24"></div>
@@ -10,8 +14,19 @@ const InitialContent = () => {
                     Please Login to post a blog
                 </p>
                 <div className="flex flex-row justify-around w-3/6">
-                    <button type="button" className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Sign In</button>
-                    <button type="button" className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">Sign Up</button>
+                    <button 
+                        type="button" 
+                        onClick={() => navigate('/signin')}
+                        className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700"
+                        >
+                            Sign In
+                    </button>
+                    <button 
+                        type="button" 
+                        onClick={() => navigate('/signup')}
+                        className="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
+                            Sign Up
+                    </button>
                 </div>
             </div>
         </>
