@@ -44,7 +44,7 @@ const Main = () => {
 
     return(
         <>
-            <div className={`font-mono items-center pt-10`}>
+            <div className={` items-center pt-10`}>
                 <div className=" flex flex-row text-center">
                     <caption className="text-5xl w-4/6">Welcome to <span className="text-red-700 font-bold">Blogz</span></caption>
                 </div>

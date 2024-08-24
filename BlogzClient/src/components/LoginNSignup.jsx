@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useActionData, useNavigate } from 'react-router-dom'
 import { useDispatch,useSelector } from 'react-redux';
 import { signInStart, signInSuccess, signInFailure } from '../redux/user/userSlice';
+import notify from '../Utils/notifier/Notifier';
 
 
 import { toast,ToastContainer } from 'react-toastify';
@@ -29,19 +30,7 @@ const LoginNSignup = (props) => {
         cnfPass: ''
     })
 
-    const notify = (message, type) => {
-        toast[type](message, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-        });
-      };
-
+    
     const handleSubmit = async (e) => {
         e.preventDefault()
         const api_url = `${import.meta.env.VITE_BACKEND_API_URL}`
@@ -64,20 +53,27 @@ const LoginNSignup = (props) => {
 
         if(option == 'signin' || option == 'signup'){
             
-                const response = await axios.post(`${api_url}${option=='signin' ? '/api/auth/signin' : '/api/auth/signup'}`, //`${import.meta.env.VITE_BACKEND_API_URL}${option=='signin' ? '/api/auth/signin' : '/api/auth/signup'}`
+                const response = await fetch(`${api_url}${option=='signin' ? '/api/auth/signin' : '/api/auth/signup'}`, 
                     {
-                        data,
+                        method: "POST",
+                        headers: {
+                          "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(data),
                     }
                 )
+                
+                console.log(response)
 
                 if(option == 'signup'){
                     setOption('signin')
                     navigate('/signin')
                 }
                 else{
-                    console.log(response)
+                    
                     if(response.status !== 200){
-                        dispatch(signInFailure(response.data.message));
+                        notify("User not found",404)
+                        dispatch(signInFailure(response.statusText));
                     }
                     if(response.statusText == "OK"){
                         
@@ -96,7 +92,7 @@ const LoginNSignup = (props) => {
     return(
         <>
         <div className='-z-10 absolute w-11/12 right-0 top-28'>
-        <section className="bg-white dark:bg-gray-900 dark:bg-opacity-65 py-5">
+        <section className="bg-white dark:bg-gray-900 dark:bg-opacity-25 py-5">
             <div className="container flex items-center justify-center min-h-screen px-6 mx-auto">
                 <form className="w-full max-w-md" onSubmit={(e) => {handleSubmit(e)}}>
                     <div className="w-2/6 h-14 mt-4 flex justify-center mx-auto">

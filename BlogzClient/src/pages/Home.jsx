@@ -1,5 +1,4 @@
 
-import InitialContent from '../components/InitialContent'
 import Main from '../components/Main'
 import {useState} from 'react'
 import SearchContent from '../components/SearchContent'

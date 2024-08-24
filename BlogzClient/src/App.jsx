@@ -10,6 +10,8 @@ import SideHeader from "./components/SideHeader";
 import AllBlogs from './pages/AllBlogs';
 import Navbar from './pages/Navbar';
 import { ToastContainer } from 'react-toastify';
+import About from './pages/About';
+import Footer from './pages/Footer';
 
 function App() {
 
@@ -21,10 +23,12 @@ function App() {
         <Route path="/signup" element={<LoginNSignup option={"signup"} />} />
         <Route path="/signin" element={<LoginNSignup option={"signin"} />} />
         <Route path="/blogs" element={<AllBlogs />  } />
+        <Route path="/about" element={<About/>  } />
         <Route path="/blogs/:id" element={<Blogs /> } />
         <Route path='/create-blog' element={<CreateBlog /> } />
 
       </Routes>
+      
       <ToastContainer />
       
     </>

@@ -10,11 +10,8 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  /* background-color: #ffffff; */
-  background-image: url('../src/assets/background.jpg');
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-attachment: fixed;
+  background-color: rgb(3, 4, 7);
+  
   
   /* background-opacity: 50%; */
 

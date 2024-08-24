@@ -21,6 +21,9 @@ const SideHeader = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const state = useSelector((state) => state.user)
+
+  const [clicked,setClicked] = useState('Home')
+
   const Menus = [
     { title: "Home", src: home, url:'/' },
     { title: "About", src: about, url:'/about' },
@@ -75,8 +78,9 @@ const SideHeader = () => {
             
                 <li
                     key={index}
-                    className={`${Menu.gap ? "mt-10" : "mt-2"} ${index === 0 && "bg-light-white"}  ${Menu.title == "Log Out" && !state.currentUser ? 'hidden' : ''} ${Menu.url == "/account" && !state.currentUser ? 'hidden' : ''}`}
+                    className={`hover:bg-gray-200 hover:rounded-lg ${Menu.title==clicked ? 'bg-gray-200 rounded-lg':''}  ${Menu.gap ? "mt-10" : "mt-2"} ${index === 0 && "bg-light-white"}  ${Menu.title == "Log Out" && !state.currentUser ? 'hidden' : ''} ${Menu.url == "/account" && !state.currentUser ? 'hidden' : ''}`}
                     onClick={() => {
+                      setClicked(Menu.title)
                         if(Menu.url){
                             if(Menu.url=='/create-blog' && !state.currentUser){
                                 notify('Please sign in to post a blog',409)  
@@ -93,9 +97,9 @@ const SideHeader = () => {
                     }}
                     >
                     <Tooltip content={!open ? Menu.title : ''} placement="right">
-                        <div className="flex bg-gray-600 bg-opacity-60 rounded-md p-2 duration-500 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 ">
+                        <div className="flex flex-row justify-center bg-gray-600 bg-opacity-60 rounded-md p-2 duration-500 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 ">
                                 
-                            <img src={Menu.src}  className="w-6 "/>
+                            <img src={Menu.src}  className="w-5 "/>
                                 
                             <span className={`${!open && "hidden"} origin-left duration-700`}>
                                 {Menu.title}
