@@ -234,29 +234,7 @@ const CreateBlog = () => {
                                     </select>
                                 </div>
 
-
                                 <div className="w-2/4">
-                                    <label
-                                        htmlFor="price"
-                                        className="text-sm font-medium block mb-2"
-                                    >
-                                        Blog Title
-                                    </label>
-                                    <input
-                                        type="text"
-                                        className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                        placeholder="Blog Title"
-                                        value={formData.title}
-                                        onChange={(e) =>
-                                        setFormData({ ...formData, title: e.target.value })
-                                        }
-                                        required
-                                    />
-                                </div>
-
-                            
-                            </div>
-                            <div className="w-2/4">
                                     <label
                                         htmlFor="price"
                                         className="text-sm font-medium block mb-2"
@@ -274,6 +252,27 @@ const CreateBlog = () => {
                                         required
                                     />
                                 </div>
+
+                            </div>
+                            <div className="w-4/6">
+                                    <label
+                                        htmlFor="price"
+                                        className="text-sm font-medium block mb-2"
+                                    >
+                                        Blog Title
+                                    </label>
+                                    <input
+                                        type="text"
+                                        className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                        placeholder="Blog Title"
+                                        value={formData.title}
+                                        onChange={(e) =>
+                                        setFormData({ ...formData, title: e.target.value })
+                                        }
+                                        required
+                                    />
+                                </div>
+                           
                             <div className="w-4/6">
                                     <label
                                         htmlFor="price"
