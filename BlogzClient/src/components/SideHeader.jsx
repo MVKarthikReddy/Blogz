@@ -6,6 +6,13 @@ import notify from "../Utils/notifier/Notifier";
 import { useDispatch,useSelector } from "react-redux";
 import { signoutSuccess } from "../redux/user/userSlice";
 import { Tooltip } from "@material-tailwind/react";
+import home from '../assets/home.png'
+import about from '../assets/about.png'
+import blogs from '../assets/blogs.png'
+import my_blogs from '../assets/my_blogs.png'
+import write_blog from '../assets/write_blog.png'
+import account from  '../assets/account.png'
+import logout from '../assets/logout.png'
 
 
 const SideHeader = () => {
@@ -14,13 +21,13 @@ const SideHeader = () => {
   const dispatch = useDispatch()
   const state = useSelector((state) => state.user)
   const Menus = [
-    { title: "Home", src: "home", url:'/' },
-    { title: "About", src: "about", url:'/about' },
-    { title: "All Blogs", src: "blogs", url:'/blogs', gap: true },
-    { title: "My Blogs ", src: "my_blogs", url:'/my-blogs' },
-    { title: "Post Blog", src: "write_blog", url:'/create-blog' },
-    { title: "Account ", src: "account", url:'/account', gap: true },
-    { title: "Log Out", src: "logout",},
+    { title: "Home", src: home, url:'/' },
+    { title: "About", src: about, url:'/about' },
+    { title: "All Blogs", src: blogs, url:'/blogs', gap: true },
+    { title: "My Blogs ", src: my_blogs, url:'/my-blogs' },
+    { title: "Post Blog", src: write_blog, url:'/create-blog' },
+    { title: "Account ", src: account, url:'/account', gap: true },
+    { title: "Log Out", src: logout,},
   ];
 
   const signoutHandler = async () => {
@@ -90,7 +97,7 @@ const SideHeader = () => {
                     <Tooltip content={!open ? Menu.title : ''} placement="right">
                         <div className="flex bg-gray-600 bg-opacity-60 rounded-md p-2 duration-500 cursor-pointer hover:bg-light-white text-gray-300 text-sm items-center gap-x-4 ">
                                 
-                            <img src={`./src/assets/${Menu.src}.png`}  className="w-6 "/>
+                            <img src={Menu.src}  className="w-6 "/>
                                 
                             <span className={`${!open && "hidden"} origin-left duration-700`}>
                                 {Menu.title}
