@@ -26,6 +26,7 @@ function Profile() {
           const data = await res.json();
           if (!res.ok) {
             notify('success',200)
+            dispatch(signoutSuccess());
             console.log(data.message);
           } else {
             dispatch(signoutSuccess());

@@ -12,7 +12,6 @@ export const Home = () => {
   return (
     <>
         <div className='-z-10 absolute w-11/12 right-0 top-28'>
-          {/* {!state.currentUser ? <InitialContent /> : <></>} */}
           <Main />
           <BlogPage />
         </div>

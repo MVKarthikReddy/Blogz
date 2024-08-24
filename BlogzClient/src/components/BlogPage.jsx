@@ -1,5 +1,5 @@
 import { useEffect,useState } from "react"
-import BlogCard from "./BlogCard"
+import BlogsCard from "./BlogsCard"
 import getRequest from "../Utils/api/getRequest"
 
 
@@ -22,7 +22,7 @@ const BlogPage = () => {
 
     return(
         <div className="">
-            <BlogCard blogs={blogs}/>
+            <BlogsCard blogs={blogs}/>
         </div>
     )
 }

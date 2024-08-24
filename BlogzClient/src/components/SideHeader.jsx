@@ -17,7 +17,7 @@ import logo from '../assets/logo.png'
 
 
 const SideHeader = () => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const state = useSelector((state) => state.user)
@@ -40,10 +40,10 @@ const SideHeader = () => {
       const data = await res.json();
       if (!res.ok) {
         notify('success',200)
-        console.log(data.message);
-      } else {
+        
         dispatch(signoutSuccess());
-      }
+      } else {
+        console.log(data.message);      }
     } catch (error) {
       console.log(error.message);
     }
@@ -75,10 +75,7 @@ const SideHeader = () => {
             
                 <li
                     key={index}
-                    className={`
-                    ${Menu.gap ? "mt-10" : "mt-2"} ${
-                        index === 0 && "bg-light-white"
-                    }  ${Menu.src == 'logout' && !state.currentUser ? 'hidden' : ''}${Menu.src == 'account' && !state.currentUser ? 'hidden' : ''}`}
+                    className={`${Menu.gap ? "mt-10" : "mt-2"} ${index === 0 && "bg-light-white"}  ${Menu.title == "Log Out" && !state.currentUser ? 'hidden' : ''} ${Menu.url == "/account" && !state.currentUser ? 'hidden' : ''}`}
                     onClick={() => {
                         if(Menu.url){
                             if(Menu.url=='/create-blog' && !state.currentUser){
@@ -89,7 +86,7 @@ const SideHeader = () => {
                             }
                             
                         }
-                        if(Menu.src == 'logout'){
+                        if(Menu.title == "Log Out"){
                             signoutHandler()
                         }
                         

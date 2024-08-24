@@ -121,7 +121,7 @@ const CreateBlog = () => {
 
     return(
         <>
-            <div className="pt-32"></div>
+            <div className='-z-10 absolute w-11/12 right-0 top-28'>
             
             <form  className="mb-9" onSubmit={(e) => {handleSubmit(e)}}>
                 
@@ -316,6 +316,7 @@ const CreateBlog = () => {
                     </div>
                 </div>
             </form>
+            </div>
             <ToastContainer />
         </>
     )
