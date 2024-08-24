@@ -1,19 +1,104 @@
 import logo from '../assets/logo.png'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useActionData, useNavigate } from 'react-router-dom'
+import { useDispatch,useSelector } from 'react-redux';
+import { signInStart, signInSuccess, signInFailure } from '../redux/user/userSlice';
+
+
+import { toast,ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
+
+import axios from 'axios'
 const LoginNSignup = (props) => {
 
     const navigate = useNavigate()
 
+    const {loading,error:errorMessage} =useSelector(state => state.user);
+    //why we  are using selector here? because we want to access 
+    const dispatch =useDispatch();
+
     // console.log(props.option)
     const [option,setOption] = useState(props.option)
 
+    const [data,setData] = useState({
+        username: '',
+        email: '',
+        password: '',
+        cnfPass: ''
+    })
+
+    const notify = (message, type) => {
+        toast[type](message, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+        });
+      };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        const api_url = `${import.meta.env.VITE_BACKEND_API_URL}`
+        console.log(api_url)
+        // console.log(`${import.meta.env.VITE_BACKEND_API_URL}${option=='signin' ? '/api/auth/signin' : '/api/auth/signup'}`)
+        const {username,email,password} = data
+        if(option == 'signin'){
+            if(!email || !password){
+                return  dispatch(signInFailure("Please fill all fields!"));
+            }
+            
+        }
+        else{
+            if(!username || !email || !password){
+                alert('enter all the fileds')
+                return
+            }
+            
+        }
+
+        if(option == 'signin' || option == 'signup'){
+            
+                const response = await axios.post(`${api_url}${option=='signin' ? '/api/auth/signin' : '/api/auth/signup'}`, //`${import.meta.env.VITE_BACKEND_API_URL}${option=='signin' ? '/api/auth/signin' : '/api/auth/signup'}`
+                    {
+                        data,
+                    }
+                )
+
+                if(option == 'signup'){
+                    setOption('signin')
+                    navigate('/signin')
+                }
+                else{
+                    console.log(response)
+                    if(response.status !== 200){
+                        dispatch(signInFailure(response.data.message));
+                    }
+                    if(response.statusText == "OK"){
+                        
+                        dispatch(signInSuccess(response.data));
+                        navigate('/');
+                      }
+                    
+                }
+        
+        }
+    }
+    
+
+    
+
     return(
         <>
-        <div className="pt-28"></div>
+        <div className='-z-10 absolute w-11/12 right-0 top-28'>
         <section className="bg-white dark:bg-gray-900 dark:bg-opacity-65 py-5">
             <div className="container flex items-center justify-center min-h-screen px-6 mx-auto">
-                <form className="w-full max-w-md">
+                <form className="w-full max-w-md" onSubmit={(e) => {handleSubmit(e)}}>
                     <div className="w-2/6 h-14 mt-4 flex justify-center mx-auto">
                         <img className="w-auto h-full rounded-xl border" src={logo} alt="hello" />
                     </div>
@@ -44,43 +129,82 @@ const LoginNSignup = (props) => {
                                 </svg>
                             </span>
 
-                            <input type="text" className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Username" />
+                            <input 
+                                type="text" 
+                                id='username'
+                                className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" 
+                                placeholder="Username"
+                                value={data.username}
+                                onChange={(e) => {
+                                    setData({...data,[e.target.id]:e.target.value.trim() })
+                                }}
+                                />
                         </div> : <></>
                     }
 
 
                     <div className="relative flex items-center mt-6">
                         <span className="absolute">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                             </svg>
                         </span>
 
-                        <input type="email" className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Email address" />
+                        <input 
+                            type="email" 
+                            id='email'
+                            className="block w-full py-3 text-gray-700 bg-white border rounded-lg px-11 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" 
+                            placeholder="Email address" 
+                            value={data.email}
+                            onChange={(e) => {
+                                setData({...data,[e.target.id]:e.target.value.trim() })
+                            }}
+                            />
                     </div>
 
                     <div className="relative flex items-center mt-4">
                         <span className="absolute">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                             </svg>
                         </span>
 
-                        <input type="password" className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Password" />
+                        <input 
+                            type="password" 
+                            id='password'
+                            className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" 
+                            placeholder="Password" 
+                            value={data.password}
+                            onChange={(e) => {
+                                setData({...data,[e.target.id]:e.target.value.trim() })
+                            }}
+                            />
                     </div>
 
                     {option=="signup" ? <div className="relative flex items-center mt-4">
                         <span className="absolute">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-3 text-gray-300 dark:text-gray-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                             </svg>
                         </span>
 
-                        <input type="password" className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" placeholder="Confirm Password" />
+                        <input 
+                            type="password" 
+                            id='cnfPass'
+                            className="block w-full px-10 py-3 text-gray-700 bg-white border rounded-lg dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40" 
+                            placeholder="Confirm Password" 
+                            value={data.cnfPass}
+                            onChange={(e) => {
+                                setData({...data,[e.target.id]:e.target.value.trim() })
+                            }}
+                            />
                     </div> : <></>}
 
                     <div className="mt-6">
-                        <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+                        <button 
+                            className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50"
+                            type='submit'
+                        >
                             {option=='signup'? "Sign Up" : "Sign In"}
                         </button>
 
@@ -98,6 +222,8 @@ const LoginNSignup = (props) => {
                 </form>
             </div>
         </section>
+        <ToastContainer />
+        </div>
     </>
     )
 }

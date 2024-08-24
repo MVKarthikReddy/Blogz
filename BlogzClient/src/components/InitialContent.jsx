@@ -1,12 +1,13 @@
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const InitialContent = () => {
 
     const navigate = useNavigate()
 
+
     return(
         <>
-            <div className="pt-24"></div>
             <div className="mt-4 bg-white dark:bg-gray-900 dark:bg-opacity-35 dark:text-gray-400 flex flex-col items-center justify-center text-center p-4">
 
                 <p className="font-mono py-4">
