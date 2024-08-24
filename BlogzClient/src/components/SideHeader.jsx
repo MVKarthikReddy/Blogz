@@ -13,6 +13,7 @@ import my_blogs from '../assets/my_blogs.png'
 import write_blog from '../assets/write_blog.png'
 import account from  '../assets/account.png'
 import logout from '../assets/logout.png'
+import logo from '../assets/logo.png'
 
 
 const SideHeader = () => {
@@ -58,7 +59,7 @@ const SideHeader = () => {
         
         <div className="flex gap-x-4 items-center">
           <img
-            src="./src/assets/logo.png"
+            src={logo}
             className={`rounded-lg cursor-pointer duration-500 w-12 ${
               open && "rotate-[360deg]"
             }`}
