@@ -8,6 +8,7 @@ import CreateBlog from './components/CreateBlog';
 import BlogPage from './components/BlogPage'
 import SideHeader from "./components/SideHeader";
 import AllBlogs from './pages/AllBlogs';
+import MyBlogs from './pages/MyBlogs'
 import Navbar from './pages/Navbar';
 import { ToastContainer } from 'react-toastify';
 import About from './pages/About';
@@ -23,6 +24,7 @@ function App() {
         <Route path="/signup" element={<LoginNSignup option={"signup"} />} />
         <Route path="/signin" element={<LoginNSignup option={"signin"} />} />
         <Route path="/blogs" element={<AllBlogs />  } />
+        <Route path="/my-blogs" element={<MyBlogs />  } />
         <Route path="/about" element={<About/>  } />
         <Route path="/blogs/:id" element={<Blogs /> } />
         <Route path='/create-blog' element={<CreateBlog /> } />

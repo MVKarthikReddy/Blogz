@@ -43,7 +43,7 @@ const Main = () => {
 
 
     return(
-        <>
+        <div className='bg-gray-900 bg-opacity-25'>
             <div className={` items-center pt-10`}>
                 <div className=" flex flex-row text-center">
                     <caption className="text-5xl w-4/6">Welcome to <span className="text-red-700 font-bold">Blogz</span></caption>
@@ -71,7 +71,7 @@ const Main = () => {
                 </div>
             
             </div>
-            <div className='w-full flex flex-row justify-center mt-9 relative -z-10'>
+            <div className='w-full flex flex-row justify-center mt-9 relative '>
                 <div className='w-4/6'>
                     <Fade>
                         {slideImages.map((slideImage, index)=> (
@@ -87,7 +87,7 @@ const Main = () => {
                 </div>
             </div>
             <ToastContainer />
-        </>
+        </div>
     )
 }
 

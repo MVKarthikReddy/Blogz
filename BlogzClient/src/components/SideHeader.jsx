@@ -14,6 +14,8 @@ import write_blog from '../assets/write_blog.png'
 import account from  '../assets/account.png'
 import logout from '../assets/logout.png'
 import logo from '../assets/logo.png'
+import { useLocation } from "react-router-dom";
+
 
 
 const SideHeader = () => {
@@ -23,6 +25,7 @@ const SideHeader = () => {
   const state = useSelector((state) => state.user)
 
   const [clicked,setClicked] = useState('Home')
+  const location = useLocation()
 
   const Menus = [
     { title: "Home", src: home, url:'/' },
@@ -78,7 +81,7 @@ const SideHeader = () => {
             
                 <li
                     key={index}
-                    className={`hover:bg-gray-200 hover:rounded-lg ${Menu.title==clicked ? 'bg-gray-200 rounded-lg':''}  ${Menu.gap ? "mt-10" : "mt-2"} ${index === 0 && "bg-light-white"}  ${Menu.title == "Log Out" && !state.currentUser ? 'hidden' : ''} ${Menu.url == "/account" && !state.currentUser ? 'hidden' : ''}`}
+                    className={`hover:bg-gray-200 hover:rounded-lg ${Menu.url==location.pathname ? 'bg-gray-200 rounded-lg':''}  ${Menu.gap ? "mt-10" : "mt-2"} ${index === 0 && "bg-light-white"}  ${Menu.title == "Log Out" && !state.currentUser ? 'hidden' : ''} ${Menu.url == "/account" && !state.currentUser ? 'hidden' : ''}`}
                     onClick={() => {
                       setClicked(Menu.title)
                         if(Menu.url){

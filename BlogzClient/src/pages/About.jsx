@@ -7,7 +7,7 @@ import { ToastContainer } from 'react-toastify'
 const About = () => {
     return(
         <section className='-z-10 absolute w-11/12 right-0 top-28 '>
-            <div className="py-12 bg-black bg-opacity-50">
+            <div className="py-12 bg-gray-900 bg-opacity-25">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
                     <div className="lg:text-center">

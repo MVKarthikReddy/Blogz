@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom"
 import PropTypes from 'prop-types';  
+import SearchContent from "./SearchContent";
 
 const BlogsCard = (props) => {
 
     const navigate = useNavigate()
+    // console.log(props.blogs.length)
     const months = [
         "January",
         "February",
@@ -20,7 +22,9 @@ const BlogsCard = (props) => {
         "December"
     ];
     return(
-        <div className="">
+        <div className=" bg-gray-900 bg-opacity-25 pt-5">
+            <SearchContent />
+            <p className="px-10 text-2xl font-bold">{props.blogs ? `${props.blogs.length>0 ? `${props.title} Blogs` : ''}` : ""}</p>
             <section className="flex flex-row flex-wrap mx-auto">
             {
                 props.blogs? props.blogs.map((item, index) => (
