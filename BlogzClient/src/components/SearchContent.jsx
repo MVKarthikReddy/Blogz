@@ -9,14 +9,13 @@ import {
 import getRequest from "../Utils/api/getRequest";
 import BlogsCard from "./BlogsCard";
 import NotFound from "./NotFound";
+import { useSearchParams } from "react-router-dom";
 
 const SearchContent = () => {
     const [blogs,setBlogs] = useState([])
-    const [searchText,setSearchText] = useState()
-    const [searchData,setSearchData] = useState({
-        title:'',
-        author:''
-    })
+    const [searchText,setSearchText] = useState('')
+    const [searchParams,setSearchParams] = useSearchParams()
+
 
 
     useEffect(() => {
@@ -33,7 +32,13 @@ const SearchContent = () => {
 
     },[])
 
+    const filterBlogs = () => {
+        console.log(searchText)
+        setBlogs(blogs.filter(f => f.title.toLowerCase().includes(searchText) || f.author.toLowerCase().includes(searchText)))
+    }
+
     const fetchCategoryBlogs = async (category) => {
+        setSearchParams({category:category})
         try {
             const res = await getRequest(`/api/blogs/get?category=${category}`)
             console.log(res)
@@ -43,6 +48,7 @@ const SearchContent = () => {
           }
 
     }
+
 
 
     return(
@@ -66,7 +72,7 @@ const SearchContent = () => {
                         </MenuHandler>
                         <MenuList className="text-black">
                             <MenuItem onClick={() => {
-                                fetchCategoryBlogs('technology')
+                                fetchCategoryBlogs()
                             }} className="hover:bg-slate-200">Tech Blogs</MenuItem>
                             <MenuItem onClick={() => {
                                 fetchCategoryBlogs('sports')
@@ -82,8 +88,15 @@ const SearchContent = () => {
                             type="text"
                             className="w-full bg-[#0d1829] flex bg-transparent pl-2 text-[#cccccc] outline-0"
                             placeholder="Search blog title or author name"
+                            value={searchText.author}
+                            onChange={(e) => {
+                                console.log('text :',e.target.value)
+                                setSearchText(e.target.value)
+                            }}
                             />
-                    <button type="submit" className="relative p-2 bg-[#0d1829] rounded-full">
+                    <button onClick={() => {
+                        filterBlogs()
+                    }} className="relative p-2 bg-[#0d1829] rounded-full">
                         <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 
                             <g id="SVGRepo_bgCarrier" strokeWidth="0"/>
