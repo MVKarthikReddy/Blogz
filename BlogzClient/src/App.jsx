@@ -13,6 +13,7 @@ import Navbar from './pages/Navbar';
 import { ToastContainer } from 'react-toastify';
 import About from './pages/About';
 import Footer from './pages/Footer';
+import ProfilePage from './pages/ProfilePage';
 
 function App() {
 
@@ -28,7 +29,7 @@ function App() {
         <Route path="/about" element={<About/>  } />
         <Route path="/blogs/:id" element={<Blogs /> } />
         <Route path='/create-blog' element={<CreateBlog /> } />
-
+        <Route path="/account" element={<ProfilePage /> } />
       </Routes>
       
       <ToastContainer />

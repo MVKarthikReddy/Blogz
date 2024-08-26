@@ -62,7 +62,7 @@ const LoginNSignup = (props) => {
                     }
                 )
                 
-                console.log(response)
+                const res = await response.json()
 
                 if(option == 'signup'){
                     setOption('signin')
@@ -75,8 +75,8 @@ const LoginNSignup = (props) => {
                         dispatch(signInFailure(response.statusText));
                     }
                     if(response.statusText == "OK"){
-                        
-                        dispatch(signInSuccess(response.data));
+                        console.log('res :',res)
+                        dispatch(signInSuccess(res));
                         navigate('/');
                       }
                     

@@ -9,9 +9,10 @@ import {
 import getRequest from "../Utils/api/getRequest";
 import BlogsCard from "./BlogsCard";
 import NotFound from "./NotFound";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const SearchContent = () => {
+    const navigate = useNavigate()
     const [blogs,setBlogs] = useState([])
     const [searchText,setSearchText] = useState('')
     const [searchParams,setSearchParams] = useSearchParams()
@@ -19,8 +20,8 @@ const SearchContent = () => {
 
 
     useEffect(() => {
-        console.log('hello')
         const getBlogs = async () => {
+            setSearchParams('')
             try {
               const res = await getRequest('/api/blogs/get')
               setBlogs(res);
@@ -34,7 +35,7 @@ const SearchContent = () => {
 
     const filterBlogs = () => {
         console.log(searchText)
-        setBlogs(blogs.filter(f => f.title.toLowerCase().includes(searchText) || f.author.toLowerCase().includes(searchText)))
+        searchText ? setBlogs(blogs.filter(f => f.title.toLowerCase().includes(searchText.trim()) || f.author.toLowerCase().includes(searchText.trim()))) : window.location.reload()
     }
 
     const fetchCategoryBlogs = async (category) => {
@@ -70,9 +71,9 @@ const SearchContent = () => {
                                 </svg>
                             </button>
                         </MenuHandler>
-                        <MenuList className="text-black">
+                        <MenuList className="text-black ">
                             <MenuItem onClick={() => {
-                                fetchCategoryBlogs()
+                                fetchCategoryBlogs('technology')
                             }} className="hover:bg-slate-200">Tech Blogs</MenuItem>
                             <MenuItem onClick={() => {
                                 fetchCategoryBlogs('sports')
@@ -80,6 +81,10 @@ const SearchContent = () => {
                             <MenuItem onClick={() => {
                                 fetchCategoryBlogs('travel')
                             }} className="hover:bg-slate-200">Travel Blogs</MenuItem>
+                            <MenuItem onClick={() => {
+                                window.location.reload()
+                                navigate('/blogs')
+                            }} className="hover:bg-slate-200">All Blogs</MenuItem>
                         </MenuList>
                     </Menu>
                     
