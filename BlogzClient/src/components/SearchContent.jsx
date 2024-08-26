@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState,useEffect } from "react"
 import {
     Menu,
     MenuHandler,
@@ -6,17 +6,50 @@ import {
     MenuItem,
     Button,
   } from "@material-tailwind/react";
+import getRequest from "../Utils/api/getRequest";
+import BlogsCard from "./BlogsCard";
+import NotFound from "./NotFound";
 
 const SearchContent = () => {
+    const [blogs,setBlogs] = useState([])
+    const [searchText,setSearchText] = useState()
+    const [searchData,setSearchData] = useState({
+        title:'',
+        author:''
+    })
 
-    const [allCategories,setAllCategories] = useState(false)
-    const [category,setCategory] = useState('')
+
+    useEffect(() => {
+        console.log('hello')
+        const getBlogs = async () => {
+            try {
+              const res = await getRequest('/api/blogs/get')
+              setBlogs(res);
+            } catch (error) {
+              console.log("Error getting blogs", error);
+            }
+          };
+        getBlogs()
+
+    },[])
+
+    const fetchCategoryBlogs = async (category) => {
+        try {
+            const res = await getRequest(`/api/blogs/get?category=${category}`)
+            console.log(res)
+            setBlogs(res);
+          } catch (error) {
+            console.log("Error getting blogs", error);
+          }
+
+    }
+
 
     return(
        
-        <div className='flex items-center justify-center '>
+        <div className='flex flex-col items-center justify-center bg-gray-900 bg-opacity-25'>
 
-            <div className="flex rounded-full bg-[#0d1829] px-2 w-full max-w-[600px]">
+            <div className="flex rounded-full bg-[#0d1829] px-2 my-3 w-full max-w-[600px]">
                     <Menu>
                         <MenuHandler>
                             <button className="self-center flex p-1 cursor-pointer bg-[#0d1829]"> 
@@ -32,9 +65,15 @@ const SearchContent = () => {
                             </button>
                         </MenuHandler>
                         <MenuList className="text-black">
-                            <MenuItem className="hover:bg-slate-200">Tech Blogs</MenuItem>
-                            <MenuItem className="hover:bg-slate-200">Sports Blogs</MenuItem>
-                            <MenuItem className="hover:bg-slate-200">Travel Blogs</MenuItem>
+                            <MenuItem onClick={() => {
+                                fetchCategoryBlogs('technology')
+                            }} className="hover:bg-slate-200">Tech Blogs</MenuItem>
+                            <MenuItem onClick={() => {
+                                fetchCategoryBlogs('sports')
+                            }} className="hover:bg-slate-200">Sports Blogs</MenuItem>
+                            <MenuItem onClick={() => {
+                                fetchCategoryBlogs('travel')
+                            }} className="hover:bg-slate-200">Travel Blogs</MenuItem>
                         </MenuList>
                     </Menu>
                     
@@ -42,7 +81,7 @@ const SearchContent = () => {
                     <input
                             type="text"
                             className="w-full bg-[#0d1829] flex bg-transparent pl-2 text-[#cccccc] outline-0"
-                            placeholder="Search blog name or author name"
+                            placeholder="Search blog title or author name"
                             />
                     <button type="submit" className="relative p-2 bg-[#0d1829] rounded-full">
                         <svg width="30px" height="30px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -55,6 +94,9 @@ const SearchContent = () => {
 
                         </svg>
                     </button>
+            </div>
+            <div>
+                {blogs.length>0 ? <BlogsCard blogs={blogs} title={"All"}/> : <NotFound /> }
             </div>
         </div>
 

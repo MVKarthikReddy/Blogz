@@ -6,6 +6,7 @@ import getRequest from "../Utils/api/getRequest"
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import human from '../assets/human.gif'
+import SearchContent from "../components/SearchContent";
 
 
 const MyBlogs = () => {
@@ -14,7 +15,6 @@ const MyBlogs = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        console.log('hello')
         const getBlogs = async () => {
             try {
               const res = await getRequest(`/api/blogs/get?userid=${state.currentUser.id}`)
@@ -29,7 +29,8 @@ const MyBlogs = () => {
     return(
         <div className="-z-10 absolute w-11/12 right-0 top-28">
             {
-                state.currentUser ? <BlogsCard blogs={blogs} title={"Your"}/> : 
+                state.currentUser ? 
+                <> <SearchContent /> <BlogsCard blogs={blogs} title={"Your"}/></> : 
                 <div className="mt-5 text-center">
                     <h1 className="mb-4 text-6xl font-semibold text-red-500 flex flex-row justify-center">
                         <img className='bg-black rounded-full' src={human} alt='not found' />

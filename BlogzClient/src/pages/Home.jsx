@@ -60,7 +60,7 @@ export const Home = () => {
             <BlogsCard blogs={techBlogs} title={"Tech"}/>
             <BlogsCard blogs={travelBlogs} title={"Travel"}/>
             <BlogsCard blogs={sportsBlogs} title={"Sports"}/>
-            <div className='w-full text-center'>
+            <div className='px-3 py-1 pb-5 w-full text-center'>
                 <label
                   onClick={() => {
                     navigate('/blogs')
