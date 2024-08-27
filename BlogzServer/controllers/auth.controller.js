@@ -1,7 +1,7 @@
 const bcryptjs = require('bcryptjs');
-const { errorHandler } = require('../utils/errorHandler.js');
 const User = require('../models/user.model.js'); 
 const jwt = require('jsonwebtoken');
+const errorHandler = require('../utils/errorHandler.js');
 
 //It's for signup page 
 const signup = async (req, res, next) => {
@@ -27,8 +27,7 @@ const signup = async (req, res, next) => {
   /* It's for sign in  */
 
   const signin =async (req,res,next) => {
-    const { email, password } =req.body.data;
-    console.log(email, password)
+    const { email, password } =req.body;
     // console.log(process.env.JWT_SECRET)
     if(!email || !password || email ==='' || password===''){
       next(errorHandler(400,'All fields are required'));
@@ -36,9 +35,9 @@ const signup = async (req, res, next) => {
    try {
     //it will find the valid email and store it 
     const validUser =await User.findOne({email});
-
+    
     if(!validUser){
-      return next(errorHandler(404,'User not found'));
+      return next(errorHandler(404,'User not found')); //errorHandler(404,'User not found')
    }
     
 

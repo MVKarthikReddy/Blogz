@@ -1,6 +1,8 @@
 const bcryptjs = require('bcryptjs');
 const { errorHandler } = require('../utils/errorHandler.js');
 const User = require('../models/user.model.js');
+const Blog = require('../models/blog.model.js');
+
 
  const test = (req, res) => {
     res.json({
@@ -92,6 +94,23 @@ const User = require('../models/user.model.js');
   }
 };
 
+
+/* --------getUserBlogs-------------- */
+const getUserBlogs =async (req,res,next) =>{
+    if (req.user.id === req.params.id){
+        console.log('getting blogs')
+      try {
+        const blogs =await Blog.find({userRef:req.params.id});
+        res.status(200).json(blogs);
+        
+      } catch (error) {
+        next(error);
+      }
+  
+    }else{
+      return next (errorHandler(401,'You can only view your own blogs!'))
+    }
+  }
 /* ---getUser if the user is true then show contact */
 
 const getUser = async (req, res, next) => {
@@ -111,5 +130,6 @@ module.exports = {
   signout,
   deleteUser,
   updateUser,
+  getUserBlogs,
   test
 }

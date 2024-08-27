@@ -29,12 +29,13 @@ app.get('/', (req, res) =>{
 
 app.use('/api/auth', authRouter);
 app.use('/api/blogs', blogRouter);
-app.use('/api/user', userRouter)
+app.use('/api/user', userRouter);
 
 
 
 // A middleware to handle errors if they are not caught by other middlewares or handlers
 app.use((err,req,res,next)=> {
+  console.log(err.statusCode)
   const statusCode =err.statusCode || 500;
   const message = err.message||'Internal server Error';
   return res.status(statusCode).json({

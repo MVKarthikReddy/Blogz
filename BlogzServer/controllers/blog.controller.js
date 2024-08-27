@@ -81,20 +81,15 @@ const deleteBlog = async (req,res,next) => {
 /* Get a Blog */
 
 const getBlog = async (req,res,next) => {
-
-    console.log(req.params.id)
     
     try {
-        console.log('hello')
-        const blogs = await Blog.find()
-        console.log(blogs)
-        console.log('hello')
+        const blog = await Blog.findById(req.params.id)
 
-        if(!blogs){
+        if(!blog){
             return next(errorHandler(404, "No blogs found with that id"));
         }
-        console.log(blogs)
-        res.status(200).json(blogs);
+        // console.log(blogs)
+        res.status(200).json(blog);
     } catch (error) {
         next(error)
     }
@@ -106,14 +101,27 @@ const getBlog = async (req,res,next) => {
 /* Get all Blogs */
 
 const getAllBlogs = async (req,res,next) => {
+    const category = req.query.category || false
+    const limit = parseInt(req.query.limit) || 9 
+
+    console.log(category)
 
     
     try {
-        const blogs = await Blog.find()
+        if(category){
+            var blogs = await Blog.find({
+                category
+            }).limit(limit);
+        }
+        else{
+            var blogs = await Blog.find();
+            console.log(blogs)
+        }
 
         if(!blogs){
             return next(errorHandler(404, "No blog found with that id"));
         }
+        console.log('blogs') 
 
         res.status(200).json(blogs);
     } catch (error) {
