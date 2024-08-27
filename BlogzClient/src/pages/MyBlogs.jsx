@@ -41,7 +41,7 @@ const MyBlogs = () => {
         <div className="-z-10 absolute w-11/12 right-0 top-28 bg-gray-900 bg-opacity-25 h-screen">
             {
                 state.currentUser ? 
-                <><BlogsCard blogs={blogs} title={"Your"}/></> : 
+                <><BlogsCard blogs={blogs} title={"Your"} source={"my_blogs"}/></> : 
                 <div className="mt-20 text-center">
                     <h1 className="mb-4 text-6xl font-semibold text-red-500 flex flex-row justify-center">
                         <img className='bg-black rounded-full' src={human} alt='not found' />

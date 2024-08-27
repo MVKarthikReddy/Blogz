@@ -30,7 +30,7 @@ const Blogs = () => {
     ];
 
     useEffect(() => {
-        const fetchListing = async () => {
+        const fetchBlog = async () => {
           try {
             setLoading(true);
 
@@ -52,7 +52,7 @@ const Blogs = () => {
             setLoading(false);
           }
         };
-        fetchListing();
+        fetchBlog();
       }, [params.id]);
 
 

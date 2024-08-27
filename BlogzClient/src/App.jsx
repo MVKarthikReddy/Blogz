@@ -14,6 +14,7 @@ import { ToastContainer } from 'react-toastify';
 import About from './pages/About';
 import Footer from './pages/Footer';
 import ProfilePage from './pages/ProfilePage';
+import UpdateBlog from './components/UpdateBlog';
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
         <Route path="/my-blogs" element={<MyBlogs />  } />
         <Route path="/about" element={<About/>  } />
         <Route path="/blogs/:id" element={<Blogs /> } />
+        <Route path="/update/blogs/:id" element={<UpdateBlog /> } />
         <Route path='/create-blog' element={<CreateBlog /> } />
         <Route path="/account" element={<ProfilePage /> } />
       </Routes>
