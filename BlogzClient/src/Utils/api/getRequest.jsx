@@ -4,7 +4,6 @@ import { notifyType } from '../notifier/NotificationType';
 
 const getRequest = async (path) => {
 
-    console.log('token')
 
     try {
         const response = await fetch(`${import.meta.env.VITE_BACKEND_API_URL}${path}`,

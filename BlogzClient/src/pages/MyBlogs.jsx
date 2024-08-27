@@ -16,9 +16,20 @@ const MyBlogs = () => {
 
     useEffect(() => {
         const getBlogs = async () => {
+            console.log(state.currentUser.token)
             try {
-              const res = await getRequest(`/api/blogs/get?userid=${state.currentUser.id}`)
+              const response = await fetch(`${import.meta.env.VITE_BACKEND_API_URL}/api/user/blogs/${state.currentUser._id}`,
+                {
+                    method: "GET",
+                    headers: {
+                      "Content-Type": "application/json",
+                      Authorization : `Bearer ${state.currentUser.token}`
+                    },
+                }
+            )
+            const res = await response.json()
               setBlogs(res);
+              console.log(res)
             } catch (error) {
               console.log("Error getting blogs", error);
             }
@@ -30,7 +41,7 @@ const MyBlogs = () => {
         <div className="-z-10 absolute w-11/12 right-0 top-28 bg-gray-900 bg-opacity-25 h-screen">
             {
                 state.currentUser ? 
-                <> <SearchContent /> <BlogsCard blogs={blogs} title={"Your"}/></> : 
+                <><BlogsCard blogs={blogs} title={"Your"}/></> : 
                 <div className="mt-20 text-center">
                     <h1 className="mb-4 text-6xl font-semibold text-red-500 flex flex-row justify-center">
                         <img className='bg-black rounded-full' src={human} alt='not found' />
