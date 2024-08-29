@@ -21,7 +21,7 @@ const blogSchema = new mongoose.Schema(
             required: true,
           },
         description : {
-            type: String,
+            type: Object,
             required: true,
           },
           readTime: {
