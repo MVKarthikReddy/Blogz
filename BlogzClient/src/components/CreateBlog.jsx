@@ -26,8 +26,8 @@ const INITIAL_DATA = {
     {
       type: "header",
       data: {
-        text: "This is my awesome editor!",
-        level: 1,
+        text: "Start your blog content here !",
+        level: 2,
       },
     },
   ],
@@ -148,10 +148,13 @@ const CreateBlog = () => {
             
             <form  className="mb-9" onSubmit={(e) => {handleSubmit(e)}}>
                 
-                <div className="w-full flex flex-row justify-center">
+                <div className="w-full flex flex-row justify-around items-center">
                     <p className="text-3xl p-4 font-mono">
                         Write Your Blog
                     </p>
+                    <button type="submit" className=" border font-semibold px-6 py-1 rounded bg-slate-500 hover:bg-slate-600">
+                        Post Blog
+                    </button>
                 </div>
                 <div className="grid grid-cols-6 gap-6 ">
                         <div className="col-span-6">

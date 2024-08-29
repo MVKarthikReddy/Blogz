@@ -6,6 +6,8 @@ import Delimiter from "@editorjs/delimiter";
 import CheckList from "@editorjs/checklist";
 import AlignmentTuneTool from "editorjs-text-alignment-blocktune";
 import ImageTool from '@editorjs/image'
+import CodeTool from '@editorjs/code';
+
 import { imageDb } from "../Utils/FireBaseImageStore"
 import {
     getDownloadURL,
@@ -16,11 +18,27 @@ import {
 
 
 export const EDITOR_JS_TOOLS = {
+    header: {
+      class: Header,
+      inlineToolbar: true,
+      tunes: ['anyTuneName'],
+      config: {
+              placeholder: 'Enter a header',
+              levels: [1, 2, 3, 4, 5, 6],
+              defaultLevel: 3,
+            },
+    },
   paragraph: {
     class: Paragraph,
     inlineToolbar: true,
     tunes: ['anyTuneName']
   },
+  code: {
+            class: CodeTool,
+            config: {
+              placeholder: 'Enter your code here...',
+            },
+          },
   image: {
       class: ImageTool,
       config: {
@@ -109,17 +127,9 @@ export const EDITOR_JS_TOOLS = {
     class: List,
     tunes: ['anyTuneName'],
   },
-  header: {
-      class: Header,
-      inlineToolbar: true,
-      tunes: ['anyTuneName'],
-      config: {
-              placeholder: 'Enter a header',
-              levels: [1, 2, 3, 4, 5, 6],
-              defaultLevel: 3,
-            },
-    },
+  
   delimiter: Delimiter,
+  
   link: {
     class: Link,
     tunes: ['anyTuneName'],

@@ -19,6 +19,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import putRequest from "../Utils/api/putRequest";
 import 'react-toastify/dist/ReactToastify.css';
+import EditorComponent from './EditorComponent';
 
 
 const UpdateBlog = () => {
@@ -46,6 +47,7 @@ const UpdateBlog = () => {
             setLoading(true);
             const blog = await getRequest(`/api/blogs/get/${params.id}`) 
             setBlog(blog)
+            console.log(blog.description)
                        
           } catch (error) {
             setLoading(false);
@@ -332,18 +334,13 @@ const UpdateBlog = () => {
                                         htmlFor="price"
                                         className="text-sm font-medium block mb-2"
                                     >
-                                        Description
+                                        Blog Content
                                     </label>
-                                    <textarea
-                                        type="text"
-                                        className="h-64 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                        placeholder="Describe your experience, thoughts .."
-                                        value={blog.description}
-                                        onChange={(e) =>
-                                            setBlog({ ...blog, description: e.target.value })
-                                        }
-                                        required
-                                    />
+                                    <div className='w-full'>
+                                        <EditorComponent data={blog.description} formData={formData} setFormData={setFormData} onChange={(e) => {console.log('hai')}} editorblock="editorjs-container" />
+                                    </div>
+                                    
+
                                 </div>
                                 <button type="submit" className="mt-7 border font-semibold px-6 py-1 rounded bg-slate-500 hover:bg-slate-600">
                                     Update Blog

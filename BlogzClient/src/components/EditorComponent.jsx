@@ -29,7 +29,7 @@ const EditorComponent = (props) => {
             ejInstance.current = editor;
           },
           autofocus: true,
-          data: DEFAULT_INITIAL_DATA,
+          data: props.data,
           onChange: async () => {
             let content = await editor.saver.save();
             props.setFormData({ ...props.formData, description: content })
