@@ -10,17 +10,35 @@ import { useNavigate } from "react-router-dom";
 
 import { useSelector } from "react-redux";
 
+
 // For toasting messages
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 import postRequest from "../Utils/api/PostRequest";
 import notify from "../Utils/notifier/Notifier";
+import EditorComponent from "./EditorComponent";
+
+// Initial Data
+const INITIAL_DATA = {
+  time: new Date().getTime(),
+  blocks: [
+    {
+      type: "header",
+      data: {
+        text: "This is my awesome editor!",
+        level: 1,
+      },
+    },
+  ],
+};
 
 const CreateBlog = () => {
 
     const [image,setImage] = useState(null)
     const [submitted,setSubmitted] = useState(true)
+    const [editorData,setEditorData] = useState(INITIAL_DATA)
+
     const state = useSelector((state) => state.user)
     const navigate = useNavigate()
 
@@ -30,7 +48,7 @@ const CreateBlog = () => {
         title: '',
         intro: '',
         readTime: '',
-        description: '',
+        description: INITIAL_DATA,
         imageUrls: ''
     })
 
@@ -51,9 +69,10 @@ const CreateBlog = () => {
           
           Promise.all(promises)
             .then((urls) => {
+                console.log('image url : ',urls[0])
               setFormData({
                 ...formData,
-                imageUrls: formData.imageUrls.concat(urls),
+                imageUrls: urls[0],
                 
               });
               setImageUploadError(false);
@@ -93,7 +112,7 @@ const CreateBlog = () => {
               reject(error);
             },
             () => {
-              getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+                getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
                 resolve(downloadURL);
               });
             }
@@ -116,7 +135,11 @@ const CreateBlog = () => {
         }
 
 
-        
+    }
+
+    const handleChange = (e) => {
+        console.log('Blog Content :',e.target.value)
+        setFormData({ ...formData, description: e.target.value })
     }
 
     return(
@@ -213,23 +236,24 @@ const CreateBlog = () => {
                             <div className="flex w-4/6 flex-row justify-between">
                             
                                 <div className="w-2/6">
-                                    <label className="text-sm font-medium block mb-2">
+                                    <label className="text-sm font-medium block my-2">
                                         Category
                                     </label>
                                     <select
-                                        className="cursor-pointer shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                        className="cursor-pointer shadow-sm bg-gray-900 bg-opacity-30 border border-gray-300 text-gray-300 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                                         value={formData.category}
                                         onChange={(e) =>
                                         setFormData({ ...formData, category: e.target.value })
                                         }
                                         required
                                     >
-                                        <option value="" disabled>
+                                        <option className="py-1" value="" disabled>
                                         Select
                                         </option>
                                         <option value="technology">Technology</option>
                                         <option value="travelling">Travelling & Adventure</option>
                                         <option value="sports">Sports</option>
+                                        <option value="general">General</option>
                                         
                                     </select>
                                 </div>
@@ -237,17 +261,17 @@ const CreateBlog = () => {
                                 <div className="w-2/4">
                                     <label
                                         htmlFor="price"
-                                        className="text-sm font-medium block mb-2"
+                                        className="text-sm font-medium block my-2"
                                     >
                                         Read Time
                                     </label>
                                     <input
                                         type="text"
-                                        className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                        className="shadow-sm bg-gray-900 bg-opacity-30 border border-gray-300 text-gray-300 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                                         placeholder="in minutes"
-                                        value={formData.title}
+                                        value={formData.readTime}
                                         onChange={(e) =>
-                                        setFormData({ ...formData, title: e.target.value })
+                                        setFormData({ ...formData, readTime: e.target.value })
                                         }
                                         required
                                     />
@@ -257,13 +281,13 @@ const CreateBlog = () => {
                             <div className="w-4/6">
                                     <label
                                         htmlFor="price"
-                                        className="text-sm font-medium block mb-2"
+                                        className="text-sm font-medium block my-2"
                                     >
                                         Blog Title
                                     </label>
                                     <input
                                         type="text"
-                                        className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                        className="shadow-sm bg-gray-900 bg-opacity-30 border border-gray-300 text-gray-300 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                                         placeholder="Blog Title"
                                         value={formData.title}
                                         onChange={(e) =>
@@ -273,16 +297,16 @@ const CreateBlog = () => {
                                     />
                                 </div>
                            
-                            <div className="w-4/6">
+                            <div className="w-4/6 bg-gray-900 bg-opacity-30">
                                     <label
                                         htmlFor="price"
-                                        className="text-sm font-medium block mb-2"
+                                        className="text-sm font-medium block my-2"
                                     >
                                         Introduction
                                     </label>
                                     <input
                                         type="text"
-                                        className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                        className="shadow-sm bg-gray-900 bg-opacity-30 border border-gray-300 text-gray-300 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
                                         placeholder="Intro to your blog"
                                         value={formData.intro}
                                         onChange={(e) =>
@@ -292,23 +316,17 @@ const CreateBlog = () => {
                                     />
                                 </div>
 
-                                <div className="w-4/6">
+                                <div className="w-5/6">
                                     <label
                                         htmlFor="price"
-                                        className="text-sm font-medium block mb-2"
+                                        className="text-sm font-medium block my-2"
                                     >
-                                        Description
+                                        Content of the Blog
                                     </label>
-                                    <textarea
-                                        type="text"
-                                        className="h-64 shadow-sm bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
-                                        placeholder="Describe your experience, thoughts .."
-                                        value={formData.description}
-                                        onChange={(e) =>
-                                        setFormData({ ...formData, description: e.target.value })
-                                        }
-                                        required
-                                    />
+                                    <div className="bg-gray-900 bg-opacity-30">
+                                        <EditorComponent data={formData.description} formData={formData} setFormData={setFormData} onChange={(e) => {console.log('hai')}} editorblock="editorjs-container" />
+                                    </div>
+                                    
                                 </div>
                                 <button type="submit" className="mt-7 border font-semibold px-6 py-1 rounded bg-slate-500 hover:bg-slate-600">
                                     Post Blog

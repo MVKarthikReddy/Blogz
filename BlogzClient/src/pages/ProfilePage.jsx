@@ -175,7 +175,7 @@ const ProfilePage = () => {
             <h1 className="my-7 text-center font-bold text-3xl font-Georgia text-gray-600">
                 Profile
             </h1>
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-4 dark:text-gray-600">
                 <input
                 type="file"
                 accept="image/*"
@@ -184,7 +184,7 @@ const ProfilePage = () => {
                 hidden
                 />
                 <div
-                    className="relative w-32 h-32 self-center cursor-pointer shadow-md overflow-hidden rounded-full"
+                    className="relative w-32 h-32 self-center cursor-pointer text-gray-600 dark:text-gray-600 shadow-md overflow-hidden rounded-full"
                     onClick={() => filePickerRef.current.click()}
                     >
                     {imageFileUploadProgress && (

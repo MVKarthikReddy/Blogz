@@ -3,12 +3,17 @@
 import {useEffect, useState} from 'react'
 import { useParams } from "react-router-dom";
 import getRequest from '../Utils/api/getRequest';
+import EditorJsHtml from 'editorjs-html';
+import BlogViewer from './BlogReader';
 
 
 const Blogs = () => {
     const params = useParams()
+    const editorJsHtml = EditorJsHtml();
+     
 
     const [loading,setLoading] = useState(false)
+    const [html,setHtml] = useState(null)
     const [blog,setBlog] = useState(null)
     const [user,setUser] = useState(null)
     const [day,setDay] = useState('')
@@ -35,8 +40,9 @@ const Blogs = () => {
             setLoading(true);
 
             const blog = await getRequest(`/api/blogs/get/${params.id}`) 
-            console.log(blog)
+            console.log(blog.description)
             setBlog(blog)
+            setHtml(editorJsHtml.parse(blog.description))
 
             const user = await getRequest(`/api/user/${blog.userRef}`)
             console.log(user)
@@ -96,7 +102,7 @@ const Blogs = () => {
                         </p>
 
                         <p className='mx-auto text-lg mt-10 dark:text-gray-300'>
-                            {blog.description}
+                            <BlogViewer data={blog.description}/>
                         </p>
 
                     </div>

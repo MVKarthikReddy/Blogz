@@ -1,7 +1,11 @@
+@import '/node_modules/alloyeditor/dist/alloy-editor/assets/alloy-editor-ocean-min.css';
+
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
 
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
