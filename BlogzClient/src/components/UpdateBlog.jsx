@@ -336,9 +336,7 @@ const UpdateBlog = () => {
                                     >
                                         Blog Content
                                     </label>
-                                    <div className='w-full'>
-                                        <EditorComponent data={blog.description} formData={formData} setFormData={setFormData} onChange={(e) => {console.log('hai')}} editorblock="editorjs-container" />
-                                    </div>
+                                    {blog.description ? <EditorComponent data={blog.description} formData={formData} setFormData={setFormData} onChange={(e) => {console.log('hai')}} editorblock="editorjs-container" /> : <></>}
                                     
 
                                 </div>
