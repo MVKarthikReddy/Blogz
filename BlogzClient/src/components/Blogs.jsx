@@ -1,21 +1,28 @@
 
 
-import {useEffect, useState} from 'react'
+import {useEffect, useState, useRef} from 'react'
 import { useParams } from "react-router-dom";
 import getRequest from '../Utils/api/getRequest';
 import EditorJsHtml from 'editorjs-html';
 import BlogViewer from './BlogReader';
-// import '../Utils/editorjsViewer.css'
+import CommentSection from '../pages/CommentSection';
+import { BiSolidCommentDetail } from "react-icons/bi";
+import { AiTwotoneLike } from "react-icons/ai";
+import { TfiCommentAlt } from "react-icons/tfi";
+
 
 
 
 const Blogs = () => {
+    // Creating  a ref for the comment section
+    const commentSectionRef = useRef(null);
     const params = useParams()
     const editorJsHtml = EditorJsHtml();
      
 
     const [loading,setLoading] = useState(false)
     const [html,setHtml] = useState(null)
+    const [comments,setComments] = useState(null)
     const [blog,setBlog] = useState(null)
     const [user,setUser] = useState(null)
     const [day,setDay] = useState('')
@@ -42,27 +49,40 @@ const Blogs = () => {
             setLoading(true);
 
             const blog = await getRequest(`/api/blogs/get/${params.id}`) 
-            console.log(blog.description)
             setBlog(blog)
             setHtml(editorJsHtml.parse(blog.description))
 
             const user = await getRequest(`/api/user/${blog.userRef}`)
-            console.log(user)
-            console.log(blog.updatedAt.split('T')[0])
+          
 
             setUser(user)
             setDay(new Date(blog.updatedAt.split('T')[0]).getDate())
             setMonth(months[new Date(blog.updatedAt).getMonth()])
             setYear(new Date(blog.updatedAt.split('T')[0]).getFullYear())
-            console.log(day,month,year)
             
           } catch (error) {
             setLoading(false);
           }
         };
         fetchBlog();
+        const fetchComments = async () => {
+            try {
+                const res = await getRequest(`/api/comments/${params.id}`)
+                setComments(res)
+                
+            } catch (error) {
+                console.log(error)
+            }    
+        }
+        fetchComments()
+        
       }, [params.id]);
 
+
+      const handleScrollToComments = () => {
+        commentSectionRef.current.scrollIntoView({ behavior: 'smooth' });
+      };
+    
 
   return (
     <>
@@ -96,6 +116,10 @@ const Blogs = () => {
                     <div className="dark:text-gray-500 px-2">|</div>
                     <h4 className="text-sm font-semibold text-gray-600 dark:text-gray-400">{blog.readTime} MIN READ</h4>
                 </div>
+                <div className='text-gray-300 py-2 flex row justify-center text-center items-center'>
+                    <label className='mx-5 flex row items-center text-center'><TfiCommentAlt onClick={handleScrollToComments}  className='cursor-pointer'/><span className='px-1'>{comments.length}</span></label>
+                    <AiTwotoneLike />
+                </div>
 
                 <div className="py-6 bg-white dark:bg-gray-800 dark:bg-opacity-45">
                     <div className="md:w-[80%] xs:w-[90%] mx-auto pt-4">
@@ -104,6 +128,9 @@ const Blogs = () => {
                         </p>
 
                         <BlogViewer data={blog.description}/>
+                        <div ref={commentSectionRef}>
+                            <CommentSection  postId={blog._id} userId={blog.userRef}/>
+                        </div>
 
                     </div>
                 </div>

@@ -36,7 +36,7 @@ const BlogViewer = ({ data }) => {
   return (
     <>
 
-      <div id='custom-viewer' /> 
+      <div id='custom-viewer' className='bg-gray-900'/> 
     </>
     
   );

@@ -31,6 +31,9 @@ const notify = (message, type) => {
         case 401:
             toast.info(msg, options);
             break;
+        case 403:
+            toast.info(message, options);
+            break;
         case 409:
             toast.info(message, options);
             break

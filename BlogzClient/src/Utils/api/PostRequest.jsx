@@ -5,7 +5,6 @@ import { notifyType } from '../notifier/NotificationType';
 
 const postRequest = async (data,path,token) => {
 
-    console.log(token)
 
     try {
         const response = await fetch(`${import.meta.env.VITE_BACKEND_API_URL}${path}`,

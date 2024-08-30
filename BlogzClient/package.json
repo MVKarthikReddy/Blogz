@@ -22,7 +22,7 @@
     "@material-tailwind/react": "^2.1.9",
     "@reduxjs/toolkit": "^2.2.7",
     "alloyeditor": "^2.14.10",
-    "axios": "^1.7.4",
+    "axios": "^1.7.5",
     "ckeditor": "^4.12.1",
     "editorjs-html": "^3.4.3",
     "editorjs-text-alignment-blocktune": "^1.0.3",
@@ -38,7 +38,8 @@
     "react-slideshow-image": "^4.3.1",
     "react-toastify": "^10.0.5",
     "redux": "^5.0.1",
-    "redux-persist": "^6.0.0"
+    "redux-persist": "^6.0.0",
+    "socket.io-client": "^4.7.5"
   },
   "devDependencies": {
     "@eslint/js": "^9.8.0",
