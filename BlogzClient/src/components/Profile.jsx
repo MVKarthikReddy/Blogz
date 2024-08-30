@@ -47,7 +47,7 @@ function Profile() {
         {
             state.currentUser ? <>
                 <MenuHandler>
-                    <img className="w-10 bg-white bg-opacity-30 rounded-xl cursor-pointer p-2" src={profile} alt="" />
+                    <img className={`${state.currentUser.profilePicture ? 'w-10 h-9 rounded cursor-pointer' : 'w-10 bg-white bg-opacity-30 rounded-xl cursor-pointer p-2'}`} src={state.currentUser.profilePicture?state.currentUser.profilePicture:profile} alt="" />
                 </MenuHandler>
                 <MenuList className="text-black">
                 <MenuItem className="text-lg">👋 {state.currentUser.username}</MenuItem>
@@ -60,7 +60,7 @@ function Profile() {
                     onClick={() => {
                         signoutHandler()
                         }}>
-                    <img className="w-4" src="https://img.icons8.com/ios-filled/50/exit.png" alt="exit"/>
+                    <img className="w-4" src='https://img.icons8.com/ios-filled/50/exit.png' alt="exit"/>
                     <span className="px-2">sign out</span>
                 </MenuItem>
                 </MenuList>

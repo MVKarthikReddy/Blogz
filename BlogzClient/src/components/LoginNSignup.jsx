@@ -75,6 +75,7 @@ const LoginNSignup = (props) => {
                     }
                     if(response.ok){
                         dispatch(signInSuccess(res));
+                        console.log(res)
                         navigate('/');
                       }
                     

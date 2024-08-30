@@ -12,6 +12,9 @@ const options = {
     theme: "light",
   }
 const notify = (message, type) => {
+    // console.log("Error message:",message)
+    console.log(message, type)
+    const msg = message || "Bad Request!"
     switch (type) {
         case 200:
             toast.success(message, options);
@@ -23,7 +26,10 @@ const notify = (message, type) => {
             toast.error(message, options);
             break;
         case 400:
-            toast.info('Bad Request!', options);
+            toast.info(message, options);
+            break;
+        case 401:
+            toast.info(msg, options);
             break;
         case 409:
             toast.info(message, options);

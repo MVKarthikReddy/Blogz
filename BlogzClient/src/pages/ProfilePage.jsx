@@ -22,9 +22,11 @@ import {
   signoutSuccess,
 } from "../redux/user/userSlice";
 import { useDispatch } from "react-redux";
+import { ToastContainer } from "react-toastify";
+import notify from "../Utils/notifier/Notifier";
 
 const ProfilePage = () => {
-  const { currentUser, error, loading } = useSelector((state) => state.user);
+  const state = useSelector((state) => state.user)
   const [imageFile, setImageFile] = useState(null);
   const [imageFileUrl, setImageFileUrl] = useState(null); //set  to current user image if no new file is uploaded temperory
   const filePickerRef = useRef(); //useRef for  the button to be able to click on it programmatically
@@ -35,7 +37,12 @@ const ProfilePage = () => {
   const [updateUserError, setUpdateUserError] = useState(null);
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
-  const [formData, setFormData] = useState({}); // formdata
+  const [formData, setFormData] = useState({
+    username: state.currentUser.username,
+    email: state.currentUser.email,
+    profilePicture: state.currentUser.profilePicture,
+    token: state.currentUser.token
+  }); // formdata
   const [showListingsError, setShowListingsError] = useState(false);
   const [userListings, setUserListings] = useState([]);
   const handleImageChange = (e) => {
@@ -47,8 +54,10 @@ const ProfilePage = () => {
     }
   };
   useEffect(() => {
+    console.log(state.currentUser)
     if (imageFile) {
-      console.log(currentUser)
+      
+      console.log("Form Data :",formData)
       uploadImage();
     }
   }, [imageFile]);
@@ -87,6 +96,8 @@ const ProfilePage = () => {
       }
     );
   };
+  
+
 
   //handle changes in input
   const handleChange = (e) => {
@@ -108,19 +119,22 @@ const ProfilePage = () => {
       return;
     }
     try {
+      console.log(state.currentUser.token)
       dispatch(updateStart());
-      const res = await fetch(`${import.meta.env.VITE_BACKEND_API_URL}/api/user/update/${currentUser._id}`, {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_API_URL}/api/user/update/${state.currentUser._id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          Authorization : `Bearer ${currentUser.token}` 
+          Authorization : `Bearer ${state.currentUser.token}` 
         },
         body: JSON.stringify(formData),
       });
       const data = await res.json();
       if (!res.ok) {
+        notify(data.message,res.status)
         dispatch(updateFailure(data.message));
-        setUpdateUserError(data.message); //display error
+
+        
       } else {
         dispatch(updateSuccess(data));
         setUpdateUserSuccess("User's profile updated successfully");
@@ -134,7 +148,7 @@ const ProfilePage = () => {
     setShowModal(false);
     try {
       dispatch(deleteUserStart());
-      const res = await fetch(`${import.meta.env.VITE_BACKEND_API_URL}/api/user/delete/${currentUser._id}`, {
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_API_URL}/api/user/delete/${state.currentUser._id}`, {
         method: "DELETE",
       });
       const data = await res.json();
@@ -207,7 +221,7 @@ const ProfilePage = () => {
                         />
                     )}
                     <img
-                        src={imageFileUrl || currentUser.profilePicture}
+                        src={imageFileUrl || state.currentUser.profilePicture}
                         alt="user"
                         className={`rounded-full w-full h-full object-cover border-8 border-[lightgray] ${
                         imageFileUploadProgress &&
@@ -224,14 +238,14 @@ const ProfilePage = () => {
                     type="text"
                     id="username"
                     placeholder="username"
-                    defaultValue={String(currentUser.username)}
+                    defaultValue={String(state.currentUser.username)}
                     onChange={handleChange}
                 />
                 <TextInput
                     type="email"
                     id="email"
                     placeholder="email"
-                    defaultValue={String(currentUser.email)}
+                    defaultValue={String(state.currentUser.email)}
                     onChange={handleChange}
                 />
                 <TextInput
@@ -244,9 +258,9 @@ const ProfilePage = () => {
                     type="submit"
                     gradientDuoTone="purpleToBlue"
                     outline
-                    disabled={loading || imageFileUploading}
+                    disabled={state.loading || imageFileUploading}
                     >
-                    {loading ? "Loading..." : "Update"}
+                    {state.loading ? "Loading..." : "Update"}
                 </Button>
             
             </form>
@@ -258,25 +272,6 @@ const ProfilePage = () => {
                     Sign Out
                 </span>
             </div>
-
-            {updateUserSuccess && (
-                <Alert color="success" className="mt-5">
-                {updateUserSuccess}
-                </Alert>
-            )}
-            {updateUserError && (
-                <Alert color="failure" className="mt-5">
-                {updateUserError}
-                </Alert>
-            )}
-            {error && (
-                <Alert color="failure" className="mt-5">
-                {error}
-                </Alert>
-            )}
-            
-
-
 
             {/* create a model for show alert box */}
             <Modal
@@ -304,6 +299,7 @@ const ProfilePage = () => {
                 </Modal.Body>
             </Modal>
         </div>
+        <ToastContainer />
     </div>
   );
 }

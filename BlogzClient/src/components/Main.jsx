@@ -14,6 +14,7 @@ import 'react-toastify/dist/ReactToastify.css';
 const Main = () => {
 
     const state = useSelector((state) => state.user)
+    console.log(state)
     const navigate = useNavigate()
 
     const slideImages = [
