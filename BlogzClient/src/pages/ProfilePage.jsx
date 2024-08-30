@@ -184,7 +184,7 @@ const ProfilePage = () => {
 
 
   return (
-    <div className="absolute w-11/12 right-0 top-28 ">
+    <div className="absolute w-11/12 sm:w-full right-0 top-28 ">
         <div className="max-w-lg mx-auto p-3 mb-5 w-full">
             <h1 className="my-7 text-center font-bold text-3xl font-Georgia text-gray-600">
                 Profile
