@@ -90,7 +90,7 @@ const LoginNSignup = (props) => {
 
     return(
         <>
-        <div className='-z-10 absolute w-11/12 right-0 top-28'>
+        <div className='-z-10 absolute w-11/12 sm:w-full right-0 top-28'>
         <section className="bg-white dark:bg-gray-900 dark:bg-opacity-25 py-5">
             <div className="container flex items-center justify-center min-h-screen px-6 mx-auto">
                 <form className="w-full max-w-md" onSubmit={(e) => {handleSubmit(e)}}>
