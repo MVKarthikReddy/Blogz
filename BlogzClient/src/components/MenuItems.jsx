@@ -15,6 +15,10 @@ import { IoNewspaperSharp } from "react-icons/io5";
 import { PiNewspaperClippingFill } from "react-icons/pi";
 import { ImPen } from "react-icons/im";
 import { useNavigate } from "react-router-dom";
+import notify from "../Utils/notifier/Notifier";
+import { useSelector } from "react-redux";
+import { ToastContainer } from 'react-toastify';
+
 
 
 
@@ -24,6 +28,7 @@ function DrawerWithNavigation(props) {
   const openDrawer = () => setOpen(true);
   const closeDrawer = () => setOpen(false);
   const navigate = useNavigate()
+  const state = useSelector((state) => state.user)
  
   return (
     <React.Fragment>
@@ -76,13 +81,21 @@ function DrawerWithNavigation(props) {
             </ListItemPrefix>
             My blogs
           </ListItem>
-          <ListItem onClick={() => navigate('/create-blog')}>
+          <ListItem onClick={() => {
+            if(state.currentUser){
+              navigate('/create-blog')
+              }
+              else{
+                notify('Sign in to post a blog !',404)
+              }
+            }}
+            >
             <ListItemPrefix>
              <ImPen className="w-6 h-6 border"/>
             </ListItemPrefix>
             Post blog
           </ListItem>
-          <ListItem onClick={() => navigate('/account')}>
+          {state.currentUser ? <ListItem onClick={() => navigate('/account')}>
             <ListItemPrefix>
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -98,10 +111,11 @@ function DrawerWithNavigation(props) {
               </svg>
             </ListItemPrefix>
             Account
-          </ListItem>
+          </ListItem>:<></>}
         </List>
        
       </Drawer>
+      <ToastContainer />
     </React.Fragment>
   );
 }
