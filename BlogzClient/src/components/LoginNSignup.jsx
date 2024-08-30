@@ -32,6 +32,7 @@ const LoginNSignup = (props) => {
     
     const handleSubmit = async (e) => {
         e.preventDefault()
+        const api_url = `${import.meta.env.VITE_BACKEND_API_URL}`
 
         const {username,email,password} = data
         if(option == 'signin'){
