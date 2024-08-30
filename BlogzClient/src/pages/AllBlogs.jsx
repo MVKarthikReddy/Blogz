@@ -8,7 +8,7 @@ import SearchContent from "../components/SearchContent";
 
 const AllBlogs = () => {
     return(
-        <div className="-z-10 absolute w-11/12 right-0 top-28 ">
+        <div className="-z-10 absolute w-11/12 right-0 top-28 sm:w-full">
             <SearchContent />
             <ToastContainer />
         </div>
