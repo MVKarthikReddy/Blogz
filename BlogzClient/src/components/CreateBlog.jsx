@@ -342,7 +342,6 @@ const CreateBlog = () => {
                 </div>
             </form>
             </div>
-            <ToastContainer />
         </>
     )
 }

@@ -83,7 +83,6 @@ const Main = () => {
                     </Fade>
                 </div>
             </div>
-            <ToastContainer />
         </div>
     )
 }

@@ -216,8 +216,8 @@ const LoginNSignup = (props) => {
                 </form>
             </div>
         </section>
-        <ToastContainer />
         </div>
+        <ToastContainer />
     </>
     )
 }

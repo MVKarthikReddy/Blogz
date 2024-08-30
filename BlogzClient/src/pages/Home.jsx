@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux'
 import Footer from './Footer'
 import BlogsCard from '../components/BlogsCard'
 import { useNavigate } from 'react-router-dom'
+import { ToastContainer } from 'react-toastify'
 export const Home = () => {
   const state = useSelector((state) => state.user); 
   const navigate = useNavigate()
@@ -56,7 +57,7 @@ export const Home = () => {
   return (
     <>
         <div className='-z-10 absolute w-11/12 right-0 top-28 sm:static sm:w-full sm:pt-28 '>
-          <Main />
+            <Main />
             <BlogsCard blogs={techBlogs} title={"Tech"}/>
             <BlogsCard blogs={travelBlogs} title={"Travel"}/>
             <BlogsCard blogs={sportsBlogs} title={"Sports"}/>
@@ -67,8 +68,9 @@ export const Home = () => {
                   }}
                  className='px-3 py-1 rounded cursor-pointer hover:underline border'>All Blogs</label>
             </div>
-          <Footer />
+            <Footer />
         </div>
+        <ToastContainer />
     </>
   )
 }

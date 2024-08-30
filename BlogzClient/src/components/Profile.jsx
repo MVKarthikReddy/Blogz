@@ -10,6 +10,7 @@ import profile from '../assets/userAvathar.svg'
 import { useSelector,useDispatch } from "react-redux";
 import { signoutSuccess } from "../redux/user/userSlice";
 import notify from "../Utils/notifier/Notifier";
+import { ToastContainer } from "react-toastify";
    
 function Profile() {
 
@@ -24,11 +25,10 @@ function Profile() {
             method: "POST",
           });
           const data = await res.json();
-          if (!res.ok) {
+          if (res.ok) {
             notify('success',200)
             navigate('/')
             dispatch(signoutSuccess());
-            console.log(data.message);
           } else {
             dispatch(signoutSuccess());
           }
@@ -51,9 +51,9 @@ function Profile() {
                 </MenuHandler>
                 <MenuList className="text-black">
                 <MenuItem className="text-lg">👋 {state.currentUser.username}</MenuItem>
-                <MenuItem className="hover:bg-slate-200 flex flex-row items-center">
+                <MenuItem className="hover:bg-slate-200 flex flex-row items-center my-1">
                     <img className="w-4" src={profile} alt="" />
-                    <span className="px-2">profile</span>
+                    <span className="px-2 py-1">profile</span>
                 </MenuItem>
                 <MenuItem 
                     className="hover:bg-red-200 flex flex-row items-center"
@@ -61,7 +61,7 @@ function Profile() {
                         signoutHandler()
                         }}>
                     <img className="w-4" src='https://img.icons8.com/ios-filled/50/exit.png' alt="exit"/>
-                    <span className="px-2">sign out</span>
+                    <span className="px-2 py-1">sign out</span>
                 </MenuItem>
                 </MenuList>
             </> : <div className="px-2 py-1 bg-slate-300 bg-opacity-35 rounded-lg">

@@ -213,7 +213,6 @@ const BlogsCard = (props) => {
                 
             }
             </section>
-            <ToastContainer />
         </div>
     )
 }

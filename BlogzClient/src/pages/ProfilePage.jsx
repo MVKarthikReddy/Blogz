@@ -234,23 +234,26 @@ const ProfilePage = () => {
                 <Alert color="failure">{imageFileUploadError}</Alert>
                 )}
 
-                <TextInput
+                <input
                     type="text"
+                    className="bg-gray-900 bg-opacity-25 text-gray-300 border px-2 py-2 rounded"
                     id="username"
                     placeholder="username"
                     defaultValue={String(state.currentUser.username)}
                     onChange={handleChange}
                 />
-                <TextInput
+                <input
                     type="email"
                     id="email"
+                    className="bg-gray-900 bg-opacity-25 text-gray-300 border px-2 py-2 rounded"
                     placeholder="email"
                     defaultValue={String(state.currentUser.email)}
                     onChange={handleChange}
                 />
-                <TextInput
+                <input
                     type="password"
                     id="password"
+                    className="bg-gray-900 bg-opacity-25 text-gray-300 border px-2 py-2 rounded"
                     placeholder="password"
                     onChange={handleChange}
                 />

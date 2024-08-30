@@ -114,7 +114,6 @@ function DrawerWithNavigation(props) {
         </List>
        
       </Drawer>
-      <ToastContainer />
     </React.Fragment>
   );
 }
