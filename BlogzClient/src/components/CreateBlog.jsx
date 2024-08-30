@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 
 import { useSelector } from "react-redux";
 
-
 // For toasting messages
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';

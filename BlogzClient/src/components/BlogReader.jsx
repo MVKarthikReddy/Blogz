@@ -11,9 +11,10 @@ const BlogViewer = ({ data }) => {
   const editorRef = useRef(null);
 
   useEffect(() => {
+    
     if (!editorRef.current) {
       const editor = new EditorJS({
-        holder: 'editorjs-viewer',
+        holder: 'custom-viewer',
         data: data,  // saved data to render
         tools: EDITOR_JS_TOOLS,
         readOnly: true,  // To Enable read-only mode
@@ -35,7 +36,7 @@ const BlogViewer = ({ data }) => {
   return (
     <>
 
-      <div id='editorjs-viewer' ref={editorRef.current}/> 
+      <div id='custom-viewer' /> 
     </>
     
   );

@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import getRequest from '../Utils/api/getRequest';
 import EditorJsHtml from 'editorjs-html';
 import BlogViewer from './BlogReader';
+// import '../Utils/editorjsViewer.css'
+
 
 
 const Blogs = () => {
@@ -101,9 +103,7 @@ const Blogs = () => {
                             {blog.intro}
                         </p>
 
-                        <p className='mx-auto text-lg mt-10 dark:text-gray-300'>
-                            <BlogViewer data={blog.description}/>
-                        </p>
+                        <BlogViewer data={blog.description}/>
 
                     </div>
                 </div>
