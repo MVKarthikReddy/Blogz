@@ -13,6 +13,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 
 const SearchContent = () => {
     const navigate = useNavigate()
+    const [type,setType] = useState('All')
     const [blogs,setBlogs] = useState([])
     const [searchText,setSearchText] = useState('')
     const [searchParams,setSearchParams] = useSearchParams()
@@ -73,12 +74,27 @@ const SearchContent = () => {
                         </MenuHandler>
                         <MenuList className="text-black ">
                             <MenuItem onClick={() => {
+                                setType('Technology')
                                 fetchCategoryBlogs('technology')
                             }} className="hover:bg-slate-200">Tech Blogs</MenuItem>
                             <MenuItem onClick={() => {
+                                setType('Lifestyle')
+                                fetchCategoryBlogs('lifestyle')
+                            }} className="hover:bg-slate-200">Lifestyle Blogs</MenuItem>
+                            <MenuItem onClick={() => {
+                                setType('Environment')
+                                fetchCategoryBlogs('environment')
+                            }} className="hover:bg-slate-200">Environment Blogs</MenuItem>
+                            <MenuItem onClick={() => {
+                                setType('Food & Cooking')
+                                fetchCategoryBlogs('food')
+                            }} className="hover:bg-slate-200">Food & Cooking Blogs</MenuItem>
+                            <MenuItem onClick={() => {
+                                setType('Sports')
                                 fetchCategoryBlogs('sports')
                             }} className="hover:bg-slate-200">Sports Blogs</MenuItem>
                             <MenuItem onClick={() => {
+                                setType('Travel')
                                 fetchCategoryBlogs('travel')
                             }} className="hover:bg-slate-200">Travel Blogs</MenuItem>
                             <MenuItem onClick={() => {
@@ -114,7 +130,7 @@ const SearchContent = () => {
                     </button>
             </div>
             <div>
-                {blogs.length>0 ? <BlogsCard blogs={blogs} title={"All"}/> : <NotFound /> }
+                {blogs.length>0 ? <BlogsCard blogs={blogs} title={type}/> : <NotFound /> }
             </div>
         </div>
 

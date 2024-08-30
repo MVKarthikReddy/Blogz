@@ -18,6 +18,7 @@ import { useLocation } from "react-router-dom";
 
 
 
+
 const SideHeader = () => {
   const [open, setOpen] = useState(false);
   const navigate = useNavigate()
@@ -56,7 +57,7 @@ const SideHeader = () => {
   };
 
   return (
-    <div className={`${open?'w-1/6':'w-20'} flex fixed`}>
+    <div className={`${open?'w-1/6':'w-20'} fixed block sm:hidden `}>
       <div
         className={` ${
           open ? "w-full duration-500" : "w-20 duration-500"

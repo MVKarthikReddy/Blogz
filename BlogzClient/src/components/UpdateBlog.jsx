@@ -265,7 +265,12 @@ const UpdateBlog = () => {
                                             Select
                                         </option>
                                         <option value="technology">Technology</option>
+                                        <option value="lifestyle">Lifestyle</option>
+                                        <option value="food">Food & Cooking</option>
+                                        <option value="education">Food & Cooking</option>
+                                        <option value="finance">Finance & Business</option>
                                         <option value="travelling">Travelling & Adventure</option>
+                                        <option value="environment">Environment & Sustainability</option>
                                         <option value="sports">Sports</option>
                                         
                                     </select>
@@ -336,7 +341,7 @@ const UpdateBlog = () => {
                                     >
                                         Blog Content
                                     </label>
-                                    {blog.description ? <EditorComponent data={blog.description} formData={formData} setFormData={setFormData} onChange={(e) => {console.log('hai')}} editorblock="editorjs-container" /> : <></>}
+                                    {blog.description ? <EditorComponent data={blog.description} formData={blog} setFormData={setBlog} onChange={(e) => {console.log('hai')}} editorblock="editorjs-container" /> : <></>}
                                     
 
                                 </div>

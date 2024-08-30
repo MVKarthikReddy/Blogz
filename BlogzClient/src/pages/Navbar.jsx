@@ -1,4 +1,5 @@
 import Header from "../components/Header"
+import DrawerWithNavigation from "../components/MenuItems"
 import SideHeader from "../components/SideHeader"
 
 
@@ -7,6 +8,7 @@ const Navbar = () => {
         <>
             <Header />
             <SideHeader />
+            <DrawerWithNavigation />
         </>
     )
 }

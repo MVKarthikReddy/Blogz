@@ -55,7 +55,7 @@ export const Home = () => {
   },[])
   return (
     <>
-        <div className='-z-10 absolute w-11/12 right-0 top-28 '>
+        <div className='-z-10 absolute w-11/12 right-0 top-28 sm:static sm:w-full sm:pt-28  sm:border'>
           <Main />
             <BlogsCard blogs={techBlogs} title={"Tech"}/>
             <BlogsCard blogs={travelBlogs} title={"Travel"}/>

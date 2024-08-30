@@ -2,7 +2,10 @@ import React, { useEffect, useRef } from 'react';
 import EditorJS from '@editorjs/editorjs';
 import Header from '@editorjs/header';
 import ImageTool from '@editorjs/image';
-import '../Utils/editorStyles.css'
+import CodeTool from '@editorjs/code';
+import { EDITOR_JS_TOOLS } from "./tools";
+import '../Utils/editorjsViewer.css'
+
 
 const BlogViewer = ({ data }) => {
   const editorRef = useRef(null);
@@ -12,14 +15,13 @@ const BlogViewer = ({ data }) => {
       const editor = new EditorJS({
         holder: 'editorjs-viewer',
         data: data,  // saved data to render
-        tools: {
-          header: Header,
-          image: ImageTool,
-        },
+        tools: EDITOR_JS_TOOLS,
         readOnly: true,  // To Enable read-only mode
+       
       });
 
       editorRef.current = editor;
+     
     }
 
     return () => {
@@ -31,9 +33,11 @@ const BlogViewer = ({ data }) => {
   }, [data]);
 
   return (
-    <div>
-      <div id="editorjs-viewer" className='bg-black bg-opacity-20 rounded' style={{  width:'800px' ,minHeight: '200px' }} />
-    </div>
+    <>
+
+      <div id='editorjs-viewer' ref={editorRef.current}/> 
+    </>
+    
   );
 };
 

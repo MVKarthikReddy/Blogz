@@ -64,7 +64,7 @@ const Blogs = () => {
 
   return (
     <>
-        <div className="-z-10 absolute w-11/12 right-0 top-28">
+        <div className="-z-10 absolute w-11/12 right-0 top-28 sm:w-full">
         {
             (blog && user) ? 
             <div className="w-full h-full bg-white dark:bg-gray-800 dark:bg-opacity-45">
@@ -84,20 +84,20 @@ const Blogs = () => {
 
                 <div className="w-[90%] mb-5 mx-auto flex md:gap-4 xs:gap-2 justify-center items-center pt-4">
                     <div className="flex gap-2 items-center">
-                        <img src={user.profilePicture} className="md:w-[2.2rem] md:h-[2.2rem] xs:w-[2rem] xs:h-[2rem] sm:w-[2rem] sm:h-[2rem] rounded-full" />
+                        <img src={user.profilePicture} className="xl:w-[2.2rem] xl:h-[2.2rem] lg:w-[2.2rem] lg:h-[2.2rem] md:w-[2.2rem] md:h-[2.2rem] xs:w-[2rem] xs:h-[2rem] sm:w-[2rem] sm:h-[2rem] rounded-full" />
                         <h2 className="text-sm font-semibold dark:text-white">{blog.author}</h2>
                     </div>
-                    <div className="dark:text-gray-500">|</div>
+                    <div className="dark:text-gray-500 px-2">|</div>
 
                     <h3 className="text-sm font-semibold text-gray-600 dark:text-gray-400">{month} {day}, {year}</h3>
 
-                    <div className="dark:text-gray-500">|</div>
+                    <div className="dark:text-gray-500 px-2">|</div>
                     <h4 className="text-sm font-semibold text-gray-600 dark:text-gray-400">{blog.readTime} MIN READ</h4>
                 </div>
 
                 <div className="py-6 bg-white dark:bg-gray-800 dark:bg-opacity-45">
                     <div className="md:w-[80%] xs:w-[90%] mx-auto pt-4">
-                        <p className="mx-auto text-xl dark:text-gray-300">
+                        <p className="mx-auto text-xl xl:w-4/5 lg:w-5/6 sm:w-5/6 sm:text-base dark:text-gray-300">
                             {blog.intro}
                         </p>
 

@@ -41,3 +41,36 @@
     margin: 0 auto; /* Center the blog viewer */
   }
   
+  .editor-container {
+    margin: 0 auto;
+    padding: 16px;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    min-height: 300px;
+  }
+  
+  @media (max-width: 640px) {
+    .editor-container {
+      width: 100%;
+    }
+  }
+  
+  @media (min-width: 641px) and (max-width: 768px) {
+    .editor-container {
+      width: 75%;
+    }
+  }
+  
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .editor-container {
+      width: 66.67%;
+    }
+  }
+  
+  @media (min-width: 1025px) {
+    .editor-container {
+      width: 50%;
+    }
+  }
+  

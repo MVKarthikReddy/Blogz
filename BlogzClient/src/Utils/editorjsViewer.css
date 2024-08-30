@@ -1,0 +1,34 @@
+#editorjs-viewer{
+    margin: 0 auto;
+    padding: 16px;
+    background-color: rgba(0, 0, 0, 0.3);
+    border-width: 3px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    min-height: 300px;
+}
+
+@media (max-width: 640px) {
+    #editorjs-viewer {
+      width: 90%;
+    }
+  }
+  
+  @media (min-width: 641px) and (max-width: 768px) {
+    #editorjs-viewer {
+      width: 90%;
+    }
+  }
+  
+  @media (min-width: 769px) and (max-width: 1024px) {
+    #editorjs-viewer {
+      width: 100%;
+    }
+  }
+  
+  @media (min-width: 1025px) {
+    #editorjs-viewer {
+      width: 70%;
+    }
+  }
+  

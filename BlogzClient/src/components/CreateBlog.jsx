@@ -243,7 +243,7 @@ const CreateBlog = () => {
                                         Category
                                     </label>
                                     <select
-                                        className="cursor-pointer shadow-sm bg-gray-900 bg-opacity-30 border border-gray-300 text-gray-300 sm:text-sm rounded-lg focus:ring-cyan-600 focus:border-cyan-600 block w-full p-2.5"
+                                        className="cursor-pointer shadow-sm bg-black bg-opacity-30 border border-gray-300 text-gray-700 sm:text-sm rounded-lg focus:ring-gray-500 block w-full p-2.5"
                                         value={formData.category}
                                         onChange={(e) =>
                                         setFormData({ ...formData, category: e.target.value })
@@ -254,9 +254,13 @@ const CreateBlog = () => {
                                         Select
                                         </option>
                                         <option value="technology">Technology</option>
+                                        <option value="lifestyle">Lifestyle</option>
+                                        <option value="food">Food & Cooking</option>
+                                        <option value="education">Food & Cooking</option>
+                                        <option value="finance">Finance & Business</option>
                                         <option value="travelling">Travelling & Adventure</option>
+                                        <option value="environment">Environment & Sustainability</option>
                                         <option value="sports">Sports</option>
-                                        <option value="general">General</option>
                                         
                                     </select>
                                 </div>

@@ -32,9 +32,13 @@ const EditorComponent = (props) => {
           data: props.data,
           onChange: async () => {
             let content = await editor.saver.save();
+            if(props.blog){
+              props.setBlog({ ...props.blog, description: content })
+              console.log('Blog Data :',props.blog);
+            }
             props.setFormData({ ...props.formData, description: content })
             
-            console.log('Form Data :',props.formData);
+            // console.log('Form Data :',props.formData);
           },
           tools: EDITOR_JS_TOOLS,
         });
@@ -53,9 +57,7 @@ const EditorComponent = (props) => {
   }, []);
 
     return(
-      <div className="w-full ">
-        <div id="editorjs" className="rounded" style={{ border: '1px solid #ddd', padding: '5px' }} />
-      </div>
+        <div id="editorjs"  />
     );;
 }
 

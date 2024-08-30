@@ -38,18 +38,14 @@ const Main = () => {
         backgroundRepeat: 'no-repeat'
       }
 
-      const user_status = useState(localStorage.getItem('User_Status'))
-      console.log(user_status)
-
-
     return(
         <div className='bg-gray-900 bg-opacity-25'>
             <div className={` items-center pt-10`}>
                 <div className=" flex flex-row text-center">
-                    <caption className="text-5xl w-4/6">Welcome to <span className="text-red-700 font-bold">Blogz</span></caption>
+                    <caption className="lg:text-5xl sm:text-3xl w-4/6 md:text-4xl">Welcome to <span className="text-red-700 font-bold">Blogz</span></caption>
                 </div>
                 <div className="flex flex-row justify-center">
-                    <p className="w-4/6 text-lg leading-7 pt-3">
+                    <p className="w-4/6 sm:w-5/6 text-lg leading-7 pt-3 sm:text-base">
                         <span className="pl-24"></span>Your go-to platform for insightful articles, fresh ideas, and a community of curious minds. Whether you're here to stay informed, get inspired, or share your thoughts, Blogz is designed to be a space where every voice matters.
                     </p>
                 </div>
@@ -71,8 +67,8 @@ const Main = () => {
                 </div>
             
             </div>
-            <div className='w-full flex flex-row justify-center mt-9 relative '>
-                <div className='w-4/6'>
+            <div className='sm:-z-10 w-full flex flex-row justify-center mt-9 relative '>
+                <div className='w-4/6 sm:w-5/6'>
                     <Fade>
                         {slideImages.map((slideImage, index)=> (
                             <div key={index}>
