@@ -89,7 +89,6 @@ const getBlog = async (req,res,next) => {
         if(!blog){
             return next(errorHandler(404, "No blogs found with that id"));
         }
-        // console.log(blogs)
         res.status(200).json(blog);
     } catch (error) {
         next(error)
@@ -104,9 +103,6 @@ const getBlog = async (req,res,next) => {
 const getAllBlogs = async (req,res,next) => {
     const category = req.query.category || false
     const limit = parseInt(req.query.limit) || 9 
-
-    console.log(category)
-
     
     try {
         if(category){
@@ -116,13 +112,11 @@ const getAllBlogs = async (req,res,next) => {
         }
         else{
             var blogs = await Blog.find();
-            console.log(blogs)
         }
 
         if(!blogs){
             return next(errorHandler(404, "No blog found with that id"));
         }
-        console.log('blogs') 
 
         res.status(200).json(blogs);
     } catch (error) {

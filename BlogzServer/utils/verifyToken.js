@@ -9,13 +9,14 @@ const verifyToken = (req, res, next) => {
     
     return next(errorHandler(401, 'Unauthorized'));
   }
+
+  // verifying the user using his token
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) {
       console.log('error')
       return next(errorHandler(401, 'Unauthorized'));
     }
-    // console.log('user:' ,user)
-    req.user = user;
+    req.user = user; // adding user to the request
     next();
   });
 };

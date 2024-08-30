@@ -1,7 +1,7 @@
 const bcryptjs = require('bcryptjs');
-const { errorHandler } = require('../utils/errorHandler.js');
 const User = require('../models/user.model.js');
 const Blog = require('../models/blog.model.js');
+const errorHandler = require('../utils/errorHandler.js');
 
 
  const test = (req, res) => {
@@ -13,7 +13,9 @@ const Blog = require('../models/blog.model.js');
 
   // For updating the user details
    const updateUser =async (req,res,next)=>{
-    if (req.user.id !== req.params.userId) {
+    console.log(req.params.id,req.body)
+    
+    if (req.user.id !== req.params.id) {
          return next(errorHandler(403, 'You are not allowed to update this user'));
       }
     if (req.body.password){
@@ -47,17 +49,23 @@ const Blog = require('../models/blog.model.js');
     }
     /* -------------------------- */
     try {
+      // console.log(req.body)
         const updatedUser =await User.findByIdAndUpdate(
-            req.params.userId,
+          
+            req.params.id,
             {
                 $set:{// we need to set this only allow user to update
                     username: req.body.username,
                     email: req.body.email,
                     profilePicture: req.body.profilePicture,
                     password: req.body.password, 
+                    token: req.body.token
                 },
             },{new :true} //new update 
         );
+        const user = await User.findById(req.params.id);
+        console.log('User :',user)
+        console.log('updated User',updatedUser)
         const { password, ...rest } = updatedUser._doc;//seperate password and rest
         res.status(200).json(rest);
         
@@ -98,7 +106,6 @@ const Blog = require('../models/blog.model.js');
 /* --------getUserBlogs-------------- */
 const getUserBlogs =async (req,res,next) =>{
     if (req.user.id === req.params.id){
-        console.log('getting blogs')
       try {
         const blogs =await Blog.find({userRef:req.params.id});
         res.status(200).json(blogs);
@@ -114,8 +121,11 @@ const getUserBlogs =async (req,res,next) =>{
 /* ---getUser if the user is true then show contact */
 
 const getUser = async (req, res, next) => {
+  // console.log(req.params.id)
   try {
+
     const user = await User.findById(req.params.id);
+
     if (!user) return next(errorHandler(404, 'User not found!'));
     const { password: pass, ...rest } = user._doc;
     res.status(200).json(rest);

@@ -1,13 +1,35 @@
 const express = require('express')
 const cors = require('cors');
+const http = require('http');
+
+
 const connectMongoDB = require('./config/dbConfig');
 const authRouter = require('./routes/auth.router.js')
 const blogRouter = require('./routes/blog.router')
 const userRouter = require('./routes/user.router')
+const commentRouter = require('./routes/comment.router')
 
 require('dotenv').config()
 
 const app = express();
+const server = http.createServer(app);
+const io = require("socket.io")(server,
+    { cors:{origin:process.env.FRONTEND_URL,
+      methods:["GET","POST"],
+      credentials:true,
+      allowedHeaders:[`Access-Control-Allow-Origin:${process.env.FRONTEND_URL}`]}
+    }); // Creating socket server for realtime data sharing
+
+
+// Socket.io connection
+io.on('connection', (socket) => {
+  console.log('A user connected');
+  
+  socket.on('disconnect', () => {
+    console.log('A user disconnected');
+  });
+});
+
 
 connectMongoDB()
 
@@ -16,7 +38,7 @@ app.use(cors());
 app.use(express.json()); //it  allows to parse JSON objects in the request body
 
 
-app.listen(5000,() => {
+server.listen(5000,() => {
     console.log(`server is running on ${5000}`)
 })
 
@@ -27,10 +49,17 @@ app.get('/', (req, res) =>{
   })
 
 
+// To attach our io to the request object, then we can use it in controllers or where ever we want
+app.use((req, res, next) => {
+  req.io = io;
+  next();
+});
+
+   
 app.use('/api/auth', authRouter);
 app.use('/api/blogs', blogRouter);
 app.use('/api/user', userRouter);
-
+app.use('/api/comments', commentRouter);
 
 
 // A middleware to handle errors if they are not caught by other middlewares or handlers
