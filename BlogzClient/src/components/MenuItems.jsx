@@ -25,7 +25,6 @@ import { ToastContainer } from 'react-toastify';
  
 function DrawerWithNavigation(props) {
   const [open, setOpen] = React.useState(props.open);
-  const openDrawer = () => setOpen(true);
   const closeDrawer = () => setOpen(false);
   const navigate = useNavigate()
   const state = useSelector((state) => state.user)

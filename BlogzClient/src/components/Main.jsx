@@ -19,15 +19,15 @@ const Main = () => {
     const slideImages = [
         {
           url: 'https://wallpaperaccess.com/full/829018.jpg',
-          caption: 'Technology'
+          caption1: 'Technology'
         },
         {
           url: 'https://img.freepik.com/premium-photo/adventure-travel-hd-8k-wallpaper-stock-photographic-image_915071-72176.jpg?w=1060',
-          caption: 'Travelling & Adventures'
+          caption1: 'Travelling & Adventures'
         },
         {
           url: 'https://images7.alphacoders.com/872/872479.jpg',
-          caption: 'Sports'
+          caption1: 'Sports',
         },
       ];
 
@@ -74,7 +74,7 @@ const Main = () => {
                             <div key={index}>
                                 <div className='flex flex-row justify-center lg:h-96 md:h-72 sm:h-56'  style={{ ...divStyle, 'backgroundImage': `url(${slideImage.url})` }}>
                                     <span className='text-black font-semibold font-mono border px-4 py-1 bg-white bg-opacity-55 rounded h-8 text-center mt-5'>
-                                        {slideImage.caption}
+                                        {slideImage.caption1}
                                     </span>
                                 </div>
                             </div>

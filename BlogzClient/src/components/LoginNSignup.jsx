@@ -32,9 +32,7 @@ const LoginNSignup = (props) => {
     
     const handleSubmit = async (e) => {
         e.preventDefault()
-        const api_url = `${import.meta.env.VITE_BACKEND_API_URL}`
-        console.log(api_url)
-        // console.log(`${import.meta.env.VITE_BACKEND_API_URL}${option=='signin' ? '/api/auth/signin' : '/api/auth/signup'}`)
+
         const {username,email,password} = data
         if(option == 'signin'){
             if(!email || !password){
@@ -74,8 +72,7 @@ const LoginNSignup = (props) => {
                         notify("User not found",404)
                         dispatch(signInFailure(response.statusText));
                     }
-                    if(response.statusText == "OK"){
-                        console.log('res :',res)
+                    if(response.ok){
                         dispatch(signInSuccess(res));
                         navigate('/');
                       }
