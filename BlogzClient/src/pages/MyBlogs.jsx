@@ -16,7 +16,6 @@ const MyBlogs = () => {
 
     useEffect(() => {
         const getBlogs = async () => {
-            console.log(state.currentUser.token)
             try {
               const response = await fetch(`${import.meta.env.VITE_BACKEND_API_URL}/api/user/blogs/${state.currentUser._id}`,
                 {
@@ -29,7 +28,6 @@ const MyBlogs = () => {
             )
             const res = await response.json()
               setBlogs(res);
-              console.log(res)
             } catch (error) {
               console.log("Error getting blogs", error);
             }

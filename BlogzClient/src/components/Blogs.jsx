@@ -93,7 +93,6 @@ const Blogs = () => {
                         },
                     }
                 )
-                console.log(res)
                 if(res.ok){
                     setLike(true)
                 }
@@ -133,10 +132,8 @@ const Blogs = () => {
       };
 
       const handleLikesCount = async () => {
-        console.log(like)
         if(!like){
             const res = await postRequest({},`/api/likes/like/${params.id}`,state.currentUser.token)
-            console.log(res)
             if(res.ok)
             {
                 setLike(true)
@@ -149,7 +146,6 @@ const Blogs = () => {
         }
         else if(like){
             const res = await deleteRequest(`/api/likes/unlike/${params.id}`,state.currentUser.token)
-            console.log(res)
             if(res.ok)
             {
                 setLike(false)

@@ -56,8 +56,6 @@ const CreateBlog = () => {
 
     const handleImageUpload = (e) => {
 
-        console.log('uploading image')
-        console.log(image)
         if (image){
           setUploading(true);
           setImageUploadError(false);
@@ -68,7 +66,6 @@ const CreateBlog = () => {
           
           Promise.all(promises)
             .then((urls) => {
-                console.log('image url : ',urls[0])
               setFormData({
                 ...formData,
                 imageUrls: urls[0],
@@ -83,13 +80,11 @@ const CreateBlog = () => {
               setUploading(false);
             });
         } else {
-          console.log("Select an image first")
           setUploading(false);
         }
       };
     
       const storeImage = async (file) => {
-          console.log('uploading image')
         return new Promise((resolve, reject) => {
           // const storage = getStorage(app);
           const fileName = new Date().getTime() + file.name;
@@ -124,10 +119,8 @@ const CreateBlog = () => {
         setUploading(true)
         e.preventDefault()
         
-        console.log(formData)
         const res = await postRequest(formData,'/api/blogs/create',state.currentUser.token)
        
-        console.log(res)
         if(res.ok){
             // notify('successfully posted blog',res.status)
             navigate('/my-blogs')
@@ -137,7 +130,6 @@ const CreateBlog = () => {
     }
 
     const handleChange = (e) => {
-        console.log('Blog Content :',e.target.value)
         setFormData({ ...formData, description: e.target.value })
     }
 
@@ -172,7 +164,6 @@ const CreateBlog = () => {
                                                 className="flex flex-col items-center justify-center py-24"
                                                 onClick={() => {
                                                     setSubmitted(false)
-                                                    console.log(submitted)
                                                     }
                                                 }
                                             >
@@ -330,7 +321,7 @@ const CreateBlog = () => {
                                         Content of the Blog
                                     </label>
                                     <div className="bg-gray-900 bg-opacity-30">
-                                        <EditorComponent data={formData.description} formData={formData} setFormData={setFormData} onChange={(e) => {console.log('hai')}} editorblock="editorjs-container" />
+                                        <EditorComponent data={formData.description} formData={formData} setFormData={setFormData} editorblock="editorjs-container" />
                                     </div>
                                     
                                 </div>

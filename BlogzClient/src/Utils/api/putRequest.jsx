@@ -18,7 +18,6 @@ const putRequest = async (data,path,token) => {
             }
         )
         
-        console.log(response);
         notify(response["message"], notifyType(response.status));
         return response;
 

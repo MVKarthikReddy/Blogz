@@ -19,7 +19,6 @@ const LoginNSignup = (props) => {
     //why we  are using selector here? because we want to access 
     const dispatch =useDispatch();
 
-    // console.log(props.option)
     const [option,setOption] = useState(props.option)
 
     const [data,setData] = useState({
@@ -75,7 +74,6 @@ const LoginNSignup = (props) => {
                     }
                     if(response.ok){
                         dispatch(signInSuccess(res));
-                        console.log(res)
                         navigate('/');
                       }
                     

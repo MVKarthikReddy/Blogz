@@ -35,7 +35,6 @@ const SearchContent = () => {
     },[])
 
     const filterBlogs = () => {
-        console.log(searchText)
         searchText ? setBlogs(blogs.filter(f => f.title.toLowerCase().includes(searchText.trim()) || f.author.toLowerCase().includes(searchText.trim()))) : window.location.reload()
     }
 
@@ -43,7 +42,6 @@ const SearchContent = () => {
         setSearchParams({category:category})
         try {
             const res = await getRequest(`/api/blogs/get?category=${category}`)
-            console.log(res)
             setBlogs(res);
           } catch (error) {
             console.log("Error getting blogs", error);
@@ -111,7 +109,6 @@ const SearchContent = () => {
                             placeholder="Search blog title or author name"
                             value={searchText.author}
                             onChange={(e) => {
-                                console.log('text :',e.target.value)
                                 setSearchText(e.target.value)
                             }}
                             />

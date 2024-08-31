@@ -11,7 +11,6 @@ const BlogsCard = (props) => {
 
     const navigate = useNavigate()
     const state = useSelector((state) => state.user)
-    // console.log(props.blogs.length)
     const months = [
         "January",
         "February",
@@ -28,7 +27,6 @@ const BlogsCard = (props) => {
     ];
 
     const handleDelete = async (blog_id) => {
-        console.log(blog_id)
 
         const res = await deleteRequest(`/api/blogs/delete/${blog_id}`,state.currentUser.token)
         if(res.ok){

@@ -15,7 +15,6 @@ const getRequest = async (path) => {
             }
         )
         const res = await response.json()
-        console.log(res);
         notify(response["message"], notifyType(response.status));
         return res;
 

@@ -19,7 +19,6 @@ function Profile() {
     const navigate = useNavigate()
 
     const signoutHandler = async () => {
-        console.log('I am Done!')
         try {
           const res = await fetch(`${import.meta.env.VITE_BACKEND_API_URL}/api/user/signout`, {
             method: "POST",

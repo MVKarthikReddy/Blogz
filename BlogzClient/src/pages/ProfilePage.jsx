@@ -54,10 +54,7 @@ const ProfilePage = () => {
     }
   };
   useEffect(() => {
-    console.log(state.currentUser)
     if (imageFile) {
-      
-      console.log("Form Data :",formData)
       uploadImage();
     }
   }, [imageFile]);
@@ -119,7 +116,6 @@ const ProfilePage = () => {
       return;
     }
     try {
-      console.log(state.currentUser.token)
       dispatch(updateStart());
       const res = await fetch(`${import.meta.env.VITE_BACKEND_API_URL}/api/user/update/${state.currentUser._id}`, {
         method: "PUT",
@@ -170,7 +166,7 @@ const ProfilePage = () => {
       });
       const data = await res.json();
       if (!res.ok) {
-        console.log(data.message);
+        notify('Success',200)
       } else {
         dispatch(signoutSuccess());
       }

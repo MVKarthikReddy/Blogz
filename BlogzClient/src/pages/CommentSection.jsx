@@ -38,7 +38,6 @@ const CommentSection = ({postId,userId}) => {
         
         // Listen for new comments via Socket.io
         socket.on('new-comment', (newComment) => {
-            console.log(newComment)
           setComments((prevComments) => [newComment,...prevComments]);
         });
     
@@ -63,7 +62,6 @@ const CommentSection = ({postId,userId}) => {
           };
           try {
             const res = await postRequest(newComment, '/api/comments/post', state.currentUser.token);
-            console.log(res)
             if(res.ok)
             {
                 notify('Comment Posted.',201)

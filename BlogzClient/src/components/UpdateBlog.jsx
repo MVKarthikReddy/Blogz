@@ -38,16 +38,12 @@ const UpdateBlog = () => {
     })
     const params = useParams()
 
-    // console.log('params.id')
     useEffect(() => {
-        console.log('params.id')
         const fetchBlog = async () => {
-        console.log('params.id')
           try {
             setLoading(true);
             const blog = await getRequest(`/api/blogs/get/${params.id}`) 
             setBlog(blog)
-            console.log(blog.description)
                        
           } catch (error) {
             setLoading(false);
@@ -78,8 +74,6 @@ const UpdateBlog = () => {
 
     const handleImageUpload = (e) => {
 
-        console.log('uploading image')
-        console.log(image)
         if (image){
           setUploading(true);
           setImageUploadError(false);
@@ -104,13 +98,11 @@ const UpdateBlog = () => {
               setUploading(false);
             });
         } else {
-          console.log("Select an image first")
           setUploading(false);
         }
       };
     
       const storeImage = async (file) => {
-          console.log('uploading image')
         return new Promise((resolve, reject) => {
           // const storage = getStorage(app);
           const fileName = new Date().getTime() + file.name;
@@ -147,7 +139,6 @@ const UpdateBlog = () => {
         
         const res = await putRequest(blog,`/api/blogs/update/${params.id}`,state.currentUser.token)
        
-        console.log(res)
         if(res.ok){
             // notify('successfully posted blog',res.status)
             navigate('/my-blogs')

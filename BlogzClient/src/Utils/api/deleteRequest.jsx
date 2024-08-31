@@ -16,7 +16,6 @@ const deleteRequest = async (path,token) => {
             }
         )
         
-        console.log('Delete like response',response);
         notify(response["message"], notifyType(response.status));
         return response;
 

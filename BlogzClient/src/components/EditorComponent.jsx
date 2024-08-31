@@ -34,11 +34,9 @@ const EditorComponent = (props) => {
             let content = await editor.saver.save();
             if(props.blog){
               props.setBlog({ ...props.blog, description: content })
-              console.log('Blog Data :',props.blog);
             }
             props.setFormData({ ...props.formData, description: content })
             
-            // console.log('Form Data :',props.formData);
           },
           tools: EDITOR_JS_TOOLS,
         });
