@@ -18,7 +18,7 @@ const io = require("socket.io")(server,
     { cors:{origin:process.env.FRONTEND_URL,
       methods:["GET","POST"],
       credentials:true,
-      allowedHeaders:[`Access-Control-Allow-Origin:${process.env.FRONTEND_URL}`]}
+      allowedHeaders:'custom-headers'}
     }); // Creating socket server for realtime data sharing
 
     const corsOptions = {
