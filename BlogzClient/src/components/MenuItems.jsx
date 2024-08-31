@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import notify from "../Utils/notifier/Notifier";
 import { useSelector } from "react-redux";
 import { ToastContainer } from 'react-toastify';
+import logo from '../assets/logo.png'
 
 
 
@@ -33,9 +34,11 @@ function DrawerWithNavigation(props) {
     <React.Fragment>
       <Drawer open={open} onClose={closeDrawer}>
         <div className="mb-2 flex items-center justify-between p-4 text-black">
-          <Typography variant="h5" color="blue-gray">
-            Blogz
-          </Typography>
+          <div className="flex flex-row justify-center items-center">
+            <img className="w-16 h-16" src={logo} alt="logo" />       
+            <span className="text-2xl font-bold px-3">Blogz</span>
+            
+          </div>
           <IconButton variant="text" color="blue-gray" onClick={closeDrawer}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -56,13 +59,13 @@ function DrawerWithNavigation(props) {
         <List className="text-black">
           <ListItem onClick={() => navigate('/')}>
             <ListItemPrefix className="">
-              <IoHome className="w-6 h-6 border"/>
+              <IoHome className="w-6 h-6 "/>
             </ListItemPrefix>
             Home
           </ListItem>
           <ListItem onClick={() => navigate('/blogs')}>
             <ListItemPrefix>
-              <IoNewspaperSharp className="w-6 h-6 border"/>
+              <IoNewspaperSharp className="w-6 h-6 "/>
             </ListItemPrefix>
             All blogs
             <ListItemSuffix>
@@ -76,7 +79,7 @@ function DrawerWithNavigation(props) {
           </ListItem>
           <ListItem onClick={() => navigate('/my-blogs')}>
             <ListItemPrefix>
-              <PiNewspaperClippingFill className="w-6 h-6 border"/>
+              <PiNewspaperClippingFill className="w-6 h-6 "/>
             </ListItemPrefix>
             My blogs
           </ListItem>
@@ -90,7 +93,7 @@ function DrawerWithNavigation(props) {
             }}
             >
             <ListItemPrefix>
-             <ImPen className="w-6 h-6 border"/>
+             <ImPen className="w-6 h-6 "/>
             </ListItemPrefix>
             Post blog
           </ListItem>

@@ -72,35 +72,35 @@ const SearchContent = () => {
                                 </svg>
                             </button>
                         </MenuHandler>
-                        <MenuList className="text-black ">
+                        <MenuList className="text-gray-300 bg-gray-900">
                             <MenuItem onClick={() => {
                                 setType('Technology')
                                 fetchCategoryBlogs('technology')
-                            }} className="hover:bg-slate-200">Tech Blogs</MenuItem>
+                            }} className="dark:hover:bg-gray-600">Tech Blogs</MenuItem>
                             <MenuItem onClick={() => {
                                 setType('Lifestyle')
                                 fetchCategoryBlogs('lifestyle')
-                            }} className="hover:bg-slate-200">Lifestyle Blogs</MenuItem>
+                            }} className="dark:hover:bg-gray-600">Lifestyle Blogs</MenuItem>
                             <MenuItem onClick={() => {
                                 setType('Environment')
                                 fetchCategoryBlogs('environment')
-                            }} className="hover:bg-slate-200">Environment Blogs</MenuItem>
+                            }} className="dark:hover:bg-gray-600">Environment Blogs</MenuItem>
                             <MenuItem onClick={() => {
                                 setType('Food & Cooking')
                                 fetchCategoryBlogs('food')
-                            }} className="hover:bg-slate-200">Food & Cooking Blogs</MenuItem>
+                            }} className="dark:hover:bg-gray-600">Food & Cooking Blogs</MenuItem>
                             <MenuItem onClick={() => {
                                 setType('Sports')
                                 fetchCategoryBlogs('sports')
-                            }} className="hover:bg-slate-200">Sports Blogs</MenuItem>
+                            }} className="dark:hover:bg-gray-600">Sports Blogs</MenuItem>
                             <MenuItem onClick={() => {
                                 setType('Travel')
                                 fetchCategoryBlogs('travel')
-                            }} className="hover:bg-slate-200">Travel Blogs</MenuItem>
+                            }} className="dark:hover:bg-gray-600">Travel Blogs</MenuItem>
                             <MenuItem onClick={() => {
                                 window.location.reload()
                                 navigate('/blogs')
-                            }} className="hover:bg-slate-200">All Blogs</MenuItem>
+                            }} className="dark:hover:bg-gray-600">All Blogs</MenuItem>
                         </MenuList>
                     </Menu>
                     
@@ -130,7 +130,19 @@ const SearchContent = () => {
                     </button>
             </div>
             <div>
-                {blogs.length>0 ? <BlogsCard blogs={blogs} title={type}/> : <NotFound /> }
+                {blogs ? blogs.length>0 ? <BlogsCard blogs={blogs} title={type}/> : 
+                <div className="absolute bg-gray-900 bg-opacity-30 z-10 h-screen w-full flex items-center justify-center">
+                        <div className="flex items-center">
+                            <span className="text-3xl mr-4">Loading</span>
+                            <svg className="animate-spin h-8 w-8 text-gray-800" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                <path className="opacity-75" fill="currentColor"
+                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                </path>
+                            </svg>
+                        </div>
+                    </div> : <NotFound />}
             </div>
         </div>
 

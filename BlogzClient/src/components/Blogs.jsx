@@ -6,10 +6,15 @@ import getRequest from '../Utils/api/getRequest';
 import EditorJsHtml from 'editorjs-html';
 import BlogViewer from './BlogReader';
 import CommentSection from '../pages/CommentSection';
-import { BiSolidCommentDetail } from "react-icons/bi";
-import { AiTwotoneLike } from "react-icons/ai";
-import { TfiCommentAlt } from "react-icons/tfi";
+import io from 'socket.io-client';
+import postRequest from '../Utils/api/PostRequest';
+import { useSelector } from 'react-redux';
+import notify from '../Utils/notifier/Notifier';
+import { ToastContainer } from 'react-toastify';
+import deleteRequest from '../Utils/api/deleteRequest';
 
+
+const socket = io(`${import.meta.env.VITE_BACKEND_API_URL}`);
 
 
 
@@ -17,12 +22,13 @@ const Blogs = () => {
     // Creating  a ref for the comment section
     const commentSectionRef = useRef(null);
     const params = useParams()
-    const editorJsHtml = EditorJsHtml();
-     
+
+    const state = useSelector((state) => state.user)
 
     const [loading,setLoading] = useState(false)
-    const [html,setHtml] = useState(null)
     const [comments,setComments] = useState(null)
+    const [like,setLike] = useState(false)
+    const [likesCount,setLikesCount] = useState(0)
     const [blog,setBlog] = useState(null)
     const [user,setUser] = useState(null)
     const [day,setDay] = useState('')
@@ -50,7 +56,7 @@ const Blogs = () => {
 
             const blog = await getRequest(`/api/blogs/get/${params.id}`) 
             setBlog(blog)
-            setHtml(editorJsHtml.parse(blog.description))
+            setLikesCount(blog.likesCount)
 
             const user = await getRequest(`/api/user/${blog.userRef}`)
           
@@ -75,6 +81,47 @@ const Blogs = () => {
             }    
         }
         fetchComments()
+
+        const fetchLikes = async () => {
+            try {
+                const res = await fetch(`${import.meta.env.VITE_BACKEND_API_URL}/api/likes/get/${params.id}`,
+                    {
+                        method: "GET",
+                        headers: {
+                          "Content-Type": "application/json",
+                          Authorization: `Bearer ${state.currentUser.token}`
+                        },
+                    }
+                )
+                console.log(res)
+                if(res.ok){
+                    setLike(true)
+                }
+                
+            } catch (error) {
+                console.log(error)
+            }    
+        }
+        fetchLikes()
+
+        socket.on('like', ({ postId, likesCount }) => {
+            if (postId === params.id) {
+              // to update the likesCount
+              setLikesCount(likesCount);
+            }
+          });
+      
+        socket.on('unlike', ({ postId, likesCount }) => {
+            if (postId === params.id) {
+              // to update the likesCount
+              setLikesCount(likesCount);
+            }
+          });
+      
+          return () => {
+            socket.off('like');
+            socket.off('unlike');
+          };
         
       }, [params.id]);
 
@@ -82,6 +129,36 @@ const Blogs = () => {
       const handleScrollToComments = () => {
         commentSectionRef.current.scrollIntoView({ behavior: 'smooth' });
       };
+
+      const handleLikesCount = async () => {
+        console.log(like)
+        if(!like){
+            const res = await postRequest({},`/api/likes/like/${params.id}`,state.currentUser.token)
+            console.log(res)
+            if(res.ok)
+            {
+                setLike(true)
+                notify('Eyy, You liked a blog..',res.status)
+            }
+            else{
+                notify('You already liked the blog.',res.status)
+            }
+            
+        }
+        else if(like){
+            const res = await deleteRequest(`/api/likes/unlike/${params.id}`,state.currentUser.token)
+            console.log(res)
+            if(res.ok)
+            {
+                setLike(false)
+                notify('Ooo, You unliked a blog..',res.status)
+            }
+            else{
+                notify('You can not unlike again..',res.status)
+            }
+
+        }
+      }
     
 
   return (
@@ -89,7 +166,7 @@ const Blogs = () => {
         <div className="-z-10 absolute w-11/12 right-0 top-28 sm:w-full">
         {
             (blog && user) ? 
-            <div className="w-full h-full bg-white dark:bg-gray-800 dark:bg-opacity-45">
+            <div className="w-full h-full bg-white dark:bg-gray-800 dark:bg-opacity-30">
             <div className="w-full mx-auto py-10 bg-white dark:bg-gray-800 dark:bg-opacity-45">
                 <div className="w-[94%] mx-auto flex gap-1 items-center text-gray-500 sm:text-[12px] xs:text-[10px] font-semibold dark:text-gray-400">
                     <div>Blog</div>
@@ -117,8 +194,29 @@ const Blogs = () => {
                     <h4 className="text-sm font-semibold text-gray-600 dark:text-gray-400">{blog.readTime} MIN READ</h4>
                 </div>
                 <div className='text-gray-300 py-2 flex row justify-center text-center items-center'>
-                    <label className='mx-5 flex row items-center text-center'><TfiCommentAlt onClick={handleScrollToComments}  className='cursor-pointer'/><span className='px-1'>{comments.length}</span></label>
-                    <AiTwotoneLike />
+                    <label className='mx-5 flex flex-row items-center text-center'>
+                        <img onClick={handleScrollToComments} 
+                            className='w-10 cursor-pointer' 
+                            src='https://img.icons8.com/fluency/48/messaging-.png'
+                            alt="messaging-"
+
+                            />
+                            <span className='px-1'>
+                                {comments.length}
+                            </span>
+                    </label>
+                    <label className='mx-5 flex flex-row items-center text-center'>
+                        <img 
+                            onClick={handleLikesCount}
+                            className='w-10 cursor-pointer' 
+                            src={`${!like ? 'https://img.icons8.com/ios/50/hearts--v1.png' : 'https://img.icons8.com/3d-fluency/94/red-heart.png'}`}
+                            alt="red-heart"
+
+                            />
+                            <span className='px-1'>
+                                {likesCount}
+                            </span>
+                    </label>
                 </div>
 
                 <div className="py-6 bg-white dark:bg-gray-800 dark:bg-opacity-45">

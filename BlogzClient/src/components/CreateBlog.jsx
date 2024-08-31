@@ -143,7 +143,7 @@ const CreateBlog = () => {
 
     return(
         <>
-            <div className='-z-10 absolute w-11/12 right-0 top-28 sm:w-full'>
+            <div className='-z-10 absolute w-11/12 right-0 top-28 sm:w-full dark:bg-gray-900 dark:bg-opacity-30'>
             
             <form  className="mb-9" onSubmit={(e) => {handleSubmit(e)}}>
                 
@@ -242,7 +242,7 @@ const CreateBlog = () => {
                                         Category
                                     </label>
                                     <select
-                                        className="cursor-pointer shadow-sm bg-black bg-opacity-30 border border-gray-300 text-gray-700 sm:text-sm rounded-lg focus:ring-gray-500 block w-full p-2.5"
+                                        className="cursor-pointer shadow-sm bg-black border border-gray-300 text-gray-300 sm:text-sm rounded-lg focus:ring-gray-500 block w-full p-2.5"
                                         value={formData.category}
                                         onChange={(e) =>
                                         setFormData({ ...formData, category: e.target.value })

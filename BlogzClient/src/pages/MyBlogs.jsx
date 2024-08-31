@@ -52,7 +52,7 @@ const MyBlogs = () => {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
                         </svg>
                     </div>
-                        <p className="mt-4 text-gray-600">Let's  <a onClick={() => navigate('/signin')} className="cursor-pointer hover:underline text-blue-500">login</a> to see your blogs.</p>
+                    <p className="mt-4 text-gray-600">Let's  <a onClick={() => navigate('/signin')} className="cursor-pointer hover:underline text-blue-500">login</a> to see your blogs.</p>
                 </div>
                 
             }

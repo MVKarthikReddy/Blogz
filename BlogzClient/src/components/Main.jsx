@@ -14,7 +14,6 @@ import 'react-toastify/dist/ReactToastify.css';
 const Main = () => {
 
     const state = useSelector((state) => state.user)
-    console.log(state)
     const navigate = useNavigate()
 
     const slideImages = [
@@ -68,7 +67,7 @@ const Main = () => {
                 </div>
             
             </div>
-            <div className='sm:-z-10 w-full flex flex-row justify-center mt-9 relative '>
+            <div className='sm:-z-10 w-full flex flex-row justify-center mt-9 relative pb-8'>
                 <div className='w-4/6 sm:w-5/6'>
                     <Fade>
                         {slideImages.map((slideImage, index)=> (

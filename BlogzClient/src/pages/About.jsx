@@ -6,7 +6,7 @@ import Footer from './Footer'
 import { ToastContainer } from 'react-toastify'
 const About = () => {
     return(
-        <section className='-z-10 absolute w-11/12 right-0 top-28 '>
+        <section className='-z-10 absolute w-11/12 sm:w-full right-0 top-28 '>
             <div className="py-12 bg-gray-900 bg-opacity-25">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -23,9 +23,9 @@ const About = () => {
                         </p>
                     </div>
 
-                    <div className="mx-16 mt-7">
+                    <div className="mx-16 mt-7 sm:mx-0">
                         <h2
-                            className="font-heading mb-7 bg-orange-100 text-center text-orange-800 px-4 py-2 rounded-lg md:w-64 md:mx-auto text-xs font-semibold tracking-widest text-black uppercase title-font">
+                            className="font-heading mb-7 bg-orange-100 text-center sm:text-left text-orange-800 px-4 py-2 rounded-lg md:w-64 md:mx-auto text-xs font-semibold tracking-widest text-black uppercase title-font">
                             What We Offer?
                         </h2>
                         <dl className="space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10">

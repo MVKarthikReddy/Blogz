@@ -194,10 +194,7 @@ const BlogsCard = (props) => {
                             <></>     
                         }
                     </div>
-                    </div>
-                    
-
-                   
+                    </div>  
                 )) : <div className="absolute bg-gray-900 bg-opacity-30 z-10 h-screen w-full flex items-center justify-center">
                         <div className="flex items-center">
                             <span className="text-3xl mr-4">Loading</span>
