@@ -22,7 +22,7 @@ const io = require("socket.io")(server,
     }); // Creating socket server for realtime data sharing
 
     const corsOptions = {
-      origin: 'http://localhost:5173', // Your frontend URL
+      origin: process.env.FRONTEND_URL, // Your frontend URL
       methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
       allowedHeaders: ['Content-Type', 'Authorization'], // Add other headers if needed
       credentials: true // Allow cookies and other credentials
