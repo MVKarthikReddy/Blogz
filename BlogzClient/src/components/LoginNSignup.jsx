@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useActionData, useNavigate } from 'react-router-dom'
+import { useActionData, useLocation, useNavigate } from 'react-router-dom'
 import { useDispatch,useSelector } from 'react-redux';
 import { signInStart, signInSuccess, signInFailure } from '../redux/user/userSlice';
 import notify from '../Utils/notifier/Notifier';
@@ -14,8 +14,11 @@ import axios from 'axios'
 const LoginNSignup = (props) => {
 
     const navigate = useNavigate()
+    const location = useLocation()
+    console.log(location,location.url)
 
     const {loading,error:errorMessage} =useSelector(state => state.user);
+
     //why we  are using selector here? because we want to access 
     const dispatch =useDispatch();
 
@@ -215,7 +218,7 @@ const LoginNSignup = (props) => {
             </div>
         </section>
         </div>
-        <ToastContainer />
+        {location.pathname=='/signin' ? <ToastContainer /> : <></>}
     </>
     )
 }
