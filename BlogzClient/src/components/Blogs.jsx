@@ -108,6 +108,7 @@ const Blogs = () => {
             if (postId === params.id) {
               // to update the likesCount
               setLikesCount(likesCount);
+              setLike(true)
             }
           });
       
@@ -115,6 +116,7 @@ const Blogs = () => {
             if (postId === params.id) {
               // to update the likesCount
               setLikesCount(likesCount);
+              setLike(false)
             }
           });
       
