@@ -24,7 +24,8 @@ const io = require("socket.io")(server,
 const corsOptions = {
       origin: process.env.FRONTEND_URL, // Your frontend URL
       methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
-      credentials: true // Allow cookies and headers like Authorization
+      credentials: true, // Allow cookies and headers like Authorization
+      allowedHeaders:[`Access-Control-Allow-Origin:${process.env.FRONTEND_URL}`]
     };
     
 
