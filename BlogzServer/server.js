@@ -21,6 +21,14 @@ const io = require("socket.io")(server,
       allowedHeaders:[`Access-Control-Allow-Origin:${process.env.FRONTEND_URL}`]}
     }); // Creating socket server for realtime data sharing
 
+const corsOptions = {
+      origin: process.env.FRONTEND_URL, // Your frontend URL
+      methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
+      credentials: true // Allow cookies and headers like Authorization
+    };
+    
+
+
 
 // Socket.io connection
 io.on('connection', (socket) => {
@@ -34,7 +42,7 @@ io.on('connection', (socket) => {
 
 connectMongoDB()
 
-app.use(cors());
+app.use(cors(corsOptions));
 
 app.use(express.json()); //it  allows to parse JSON objects in the request body
 
