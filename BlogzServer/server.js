@@ -15,12 +15,17 @@ require('dotenv').config()
 const app = express();
 const server = http.createServer(app);
 const io = require("socket.io")(server,
-    { cors: {
-    origin: process.env.FRONTEND_URL,
-    methods: ['GET', 'POST'],
-    credentials: true
-  }
-    }); // Creating socket server for realtime data sharing
+  {
+    handlePreflightRequest: (req, res) => {
+        const headers = {
+            "Access-Control-Allow-Headers": "Content-Type, Authorization",
+            "Access-Control-Allow-Origin": process.env.FRONTEND_URL, //origin you want to give access to
+            "Access-Control-Allow-Credentials": true
+        };
+        res.writeHead(200, headers);
+        res.end();
+    }
+}); // Creating socket server for realtime data sharing
 
     const corsOptions = {
       origin: process.env.FRONTEND_URL, // Your frontend URL
