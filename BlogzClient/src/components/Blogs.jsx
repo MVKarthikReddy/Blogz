@@ -163,7 +163,7 @@ const Blogs = () => {
     <>
         <div className="-z-10 absolute w-11/12 right-0 top-28 sm:w-full">
         {
-            (blog && user) ? 
+            (blog && user && comments) ? 
             <div className="w-full h-full bg-white dark:bg-gray-800 dark:bg-opacity-30">
             <div className="w-full mx-auto py-10 bg-white dark:bg-gray-800 dark:bg-opacity-45">
                 <div className="w-[94%] mx-auto flex gap-1 items-center text-gray-500 sm:text-[12px] xs:text-[10px] font-semibold dark:text-gray-400">
@@ -225,7 +225,7 @@ const Blogs = () => {
 
                         <BlogViewer data={blog.description}/>
                         <div ref={commentSectionRef}>
-                            <CommentSection  postId={blog._id} userId={blog.userRef}/>
+                            <CommentSection  postId={blog._id} userId={blog.userRef} user={user}/>
                         </div>
 
                     </div>

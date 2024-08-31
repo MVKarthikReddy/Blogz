@@ -10,13 +10,14 @@ import { ToastContainer } from 'react-toastify';
 
 
 const socket = io(`${import.meta.env.VITE_BACKEND_API_URL}`);
-const CommentSection = ({postId,userId}) => {
+const CommentSection = ({postId,userId,user}) => {
+
 
     const state = useSelector((state) => state.user)
+    console.log(user)
 
     const [comments, setComments] = useState([]);
     const [comment, setComment] = useState('');
-    const [user, setUser] = useState(null)
 
     useEffect(() => {
 
@@ -106,10 +107,10 @@ const CommentSection = ({postId,userId}) => {
                                 <p className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
                                     <img
                                         className="mr-2 w-6 h-6 rounded-full"
-                                        src={state.currentUser.profilePicture}
-                                        alt={state.currentUser.username} 
+                                        src={user.profilePicture}
+                                        alt={user.username} 
                                         />
-                                        {state.currentUser.username}
+                                        {user.username}
                                 </p>
                                 <p className="text-sm text-gray-600 dark:text-gray-400"><time dateTime="2022-03-12"
                                         title="March 12th, 2022">{new Date(com.createdAt).toLocaleString()}</time></p>
