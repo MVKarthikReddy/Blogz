@@ -24,13 +24,17 @@ const blogSchema = new mongoose.Schema(
             type: Object,
             required: true,
           },
-          readTime: {
+        readTime: {
             type: String,
             required: true,
           },
         imageUrls:{
             type: String,
             required: true,
+          },
+        likesCount: {
+            type: Number,
+            default: 0
           },
         userRef: {
             type: String,

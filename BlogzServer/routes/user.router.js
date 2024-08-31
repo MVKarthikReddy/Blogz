@@ -9,7 +9,6 @@ router.post("/signout",User.signout);
 router.put('/update/:id',verifyToken, User.updateUser);
 router.get('/:id', User.getUser)
 router.get('/blogs/:id',verifyToken , User.getUserBlogs)
-// router.post('/signin',Auth.signin);
-// router.post('/google',Auth.google);
+router.delete('/delete/:id', User.deleteUser);
 
 module.exports = router;

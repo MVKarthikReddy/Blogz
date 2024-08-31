@@ -8,6 +8,7 @@ const authRouter = require('./routes/auth.router.js')
 const blogRouter = require('./routes/blog.router')
 const userRouter = require('./routes/user.router')
 const commentRouter = require('./routes/comment.router')
+const likeRouter = require('./routes/like.router')
 
 require('dotenv').config()
 
@@ -60,6 +61,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/blogs', blogRouter);
 app.use('/api/user', userRouter);
 app.use('/api/comments', commentRouter);
+app.use('/api/likes', likeRouter);
 
 
 // A middleware to handle errors if they are not caught by other middlewares or handlers

@@ -5,8 +5,9 @@ const postComment = async (req, res) => {
     const { postId, userId, comment } = req.body;
   
     try {
-      const comments = await Comment.find({ userId: userId })
-      if(!comments){
+      const comments = await Comment.find({ userId, postId })
+      console.log(comments)
+      if(comments.length==0){
 
         const newComment = new Comment({ postId, userId, comment });
         await newComment.save();
