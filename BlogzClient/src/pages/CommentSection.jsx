@@ -14,7 +14,6 @@ const CommentSection = ({postId,userId,user}) => {
 
 
     const state = useSelector((state) => state.user)
-    console.log(user)
 
     const [comments, setComments] = useState([]);
     const [comment, setComment] = useState('');
@@ -54,6 +53,12 @@ const CommentSection = ({postId,userId,user}) => {
 
       const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if(!state.currentUser){
+            notify('Please login to comment',403)
+            setComment('')
+            return
+        }
     
         if (comment.trim()) {
           const newComment = {

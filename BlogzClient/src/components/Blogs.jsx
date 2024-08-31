@@ -89,7 +89,7 @@ const Blogs = () => {
                         method: "GET",
                         headers: {
                           "Content-Type": "application/json",
-                          Authorization: `Bearer ${state.currentUser.token}`
+                        //   Authorization: `Bearer ${state.currentUser.token}`
                         },
                     }
                 )
@@ -132,6 +132,10 @@ const Blogs = () => {
       };
 
       const handleLikesCount = async () => {
+        if(!state.currentUser){
+            notify('Please login to like the blog',403)
+            return
+        }
         if(!like){
             const res = await postRequest({},`/api/likes/like/${params.id}`,state.currentUser.token)
             if(res.ok)
