@@ -14,26 +14,14 @@ require('dotenv').config()
 
 const app = express();
 const server = http.createServer(app);
-const io = require("socket.io")(server,
-  {
-    handlePreflightRequest: (req, res) => {
-        const headers = {
-            "Access-Control-Allow-Headers": "Content-Type, Authorization",
-            "Access-Control-Allow-Origin": process.env.FRONTEND_URL, //origin you want to give access to
-            "Access-Control-Allow-Credentials": true
-        };
-        res.writeHead(200, headers);
-        res.end();
-    }
+const io = require("socket.io")(server,   {
+  cors: {
+    origin: process.env.FRONTEND_URL,
+    methods: ['GET', 'POST'],
+    credentials: true
+  }
 }); // Creating socket server for realtime data sharing
 
-    const corsOptions = {
-      origin: process.env.FRONTEND_URL, // Your frontend URL
-      methods: ['GET', 'POST', 'PUT', 'DELETE'], // Allowed methods
-      allowedHeaders: ['Content-Type', 'Authorization'], // Add other headers if needed
-      credentials: true // Allow cookies and other credentials
-    };
-    
 
 
 
@@ -49,7 +37,21 @@ io.on('connection', (socket) => {
 
 connectMongoDB()
 
-app.use(cors(corsOptions));
+// Middleware to set CORS headers
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', `${process.env.FRONTEND_URL}`); // Allow specific origin
+  res.header('Access-Control-Allow-Credentials', 'true'); // Allow credentials
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200); // Handle preflight requests
+  }
+  
+  next();
+});
+
+app.use(cors())
 
 app.use(express.json()); //it  allows to parse JSON objects in the request body
 
