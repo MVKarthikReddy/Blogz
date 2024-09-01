@@ -67,8 +67,6 @@ const unlikePost = async (req, res) => {
     // Remove the like
     await Like.findByIdAndDelete(existingLike._id);
 
-    console.log('unliked the blog')
-
     // Decrement the like count on the post
     const post = await Blog.findById(postId);
     post.likesCount -= 1;
