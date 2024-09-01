@@ -150,7 +150,7 @@ const UpdateBlog = () => {
 
     return(
         <>
-            <div className='-z-10 absolute w-11/12 right-0 top-28'>
+            <div className='-z-10 absolute w-11/12 bg-gray-900 bg-opacity-25 right-0 top-28'>
             
             {(blog) ? <form  className="mb-9" onSubmit={(e) => {handleSubmit(e)}}>
                 
@@ -241,7 +241,7 @@ const UpdateBlog = () => {
                             <div className="flex w-4/6 flex-row justify-between">
                             
                                 <div className="w-2/6">
-                                    <label className="text-sm font-medium block mb-2">
+                                    <label className="text-sm font-medium block my-2">
                                         Category
                                     </label>
                                     <select
@@ -270,7 +270,7 @@ const UpdateBlog = () => {
                                 <div className="w-2/4">
                                     <label
                                         htmlFor="price"
-                                        className="text-sm font-medium block mb-2"
+                                        className="text-sm font-medium block my-2"
                                     >
                                         Read Time
                                     </label>
@@ -290,7 +290,7 @@ const UpdateBlog = () => {
                             <div className="w-4/6">
                                     <label
                                         htmlFor="price"
-                                        className="text-sm font-medium block mb-2"
+                                        className="text-sm font-medium block my-2"
                                     >
                                         Blog Title
                                     </label>
@@ -309,7 +309,7 @@ const UpdateBlog = () => {
                             <div className="w-4/6">
                                     <label
                                         htmlFor="price"
-                                        className="text-sm font-medium block mb-2"
+                                        className="text-sm font-medium block my-2"
                                     >
                                         Introduction
                                     </label>
@@ -328,7 +328,7 @@ const UpdateBlog = () => {
                                 <div className="w-4/6">
                                     <label
                                         htmlFor="price"
-                                        className="text-sm font-medium block mb-2"
+                                        className="text-sm font-medium block my-2"
                                     >
                                         Blog Content
                                     </label>

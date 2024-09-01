@@ -89,7 +89,7 @@ const Blogs = () => {
                         method: "GET",
                         headers: {
                           "Content-Type": "application/json",
-                        //   Authorization: `Bearer ${state.currentUser.token}`
+                          Authorization: `Bearer ${state.currentUser.token}`
                         },
                     }
                 )
