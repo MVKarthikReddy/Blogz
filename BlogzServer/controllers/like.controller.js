@@ -10,6 +10,8 @@ const getLike = async (req,res) => {
     try {
         // Checking whether the user has already liked the post or not
         const existingLike = await Like.findOne({ userId, postId });
+        console.log(existingLike)
+        
         
         if (existingLike) {
           return res.status(200).json({ message: 'You have already liked this post.' });

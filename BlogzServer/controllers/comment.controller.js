@@ -49,9 +49,12 @@ const getComments = async (req, res) => {
         })
         
       }
-      const cmt = await Promise.all(promises)
-
-      res.json(cmt);
+      if(comments.length>0){
+        const cmt = await Promise.all(promises)
+        return res.json(cmt);
+      }
+      res.json({message:0})
+      
     } catch (err) {
       res.status(500).json({ message: 'Server error' });
     }
