@@ -101,7 +101,10 @@ const Blogs = () => {
                 console.log(error)
             }    
         }
-        fetchLikes()
+        if(state.currentUser){
+            fetchLikes()
+        }
+        
 
         socket.on('like', ({ postId, likesCount }) => {
             if (postId === params.id) {

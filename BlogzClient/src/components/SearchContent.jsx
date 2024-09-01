@@ -128,7 +128,7 @@ const SearchContent = () => {
             </div>
             <div>
                 {blogs ? blogs.length>0 ? <BlogsCard blogs={blogs} title={type}/> : 
-                <div className="absolute bg-gray-900 bg-opacity-30 z-10 h-screen w-full flex items-center justify-center">
+                <div className="absolute right-0 top-18 bg-gray-900 bg-opacity-25 z-10 h-screen w-11/12 flex items-center justify-center">
                         <div className="flex items-center">
                             <span className="text-3xl mr-4">Loading</span>
                             <svg className="animate-spin h-8 w-8 text-gray-800" xmlns="http://www.w3.org/2000/svg" fill="none"
