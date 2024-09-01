@@ -5,7 +5,8 @@ const errorHandler = require('../utils/errorHandler.js');
 
 //It's for signup page 
 const signup = async (req, res, next) => {
-    const { username, email, password } = req.body.data;
+    // console.log(req.body,req.body.data)
+    const { username, email, password } = req.body;
        
       if(!username || !email || !password || username==='' || email ==='' || password===''){
 
@@ -46,13 +47,10 @@ const signup = async (req, res, next) => {
     if(!validPassword){
       return next(errorHandler(400,'Invalid password'));
     }
-    // console.log(process.env.JWT_SECRET)
     const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET);
     //we dont want to see hash password also in database for that
     const {password:pass, ...rest} =validUser._doc;
-    console.log(validUser)
     rest['token'] = token
-    console.log(rest)
     res.status(200).json(rest);
 
     
