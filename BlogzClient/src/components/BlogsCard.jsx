@@ -1,11 +1,16 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"
 import PropTypes from 'prop-types';  
+import io from 'socket.io-client';
+
 import SearchContent from "./SearchContent";
 import deleteRequest from "../Utils/api/deleteRequest";
 import { useSelector } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import notify from "../Utils/notifier/Notifier";
+
+const socket = io(`${import.meta.env.VITE_BACKEND_API_URL}`);
+
 
 const BlogsCard = (props) => {
 
@@ -26,6 +31,7 @@ const BlogsCard = (props) => {
         "December"
     ];
 
+   
     const handleDelete = async (blog_id) => {
 
         const res = await deleteRequest(`/api/blogs/delete/${blog_id}`,state.currentUser.token)
@@ -66,7 +72,7 @@ const BlogsCard = (props) => {
                                     {item.category}
                                 </span>
                                 <div className="flex flex-row items-center">
-                                <div
+                                {/* <div
                                     className="text-xs font-medium text-gray-500 flex flex-row items-center mr-2"
                                 >
                                     <svg
@@ -90,7 +96,7 @@ const BlogsCard = (props) => {
                                     ></path>
                                     </svg>
                                     <span>1.5k</span>
-                                </div>
+                                </div> */}
 
                                 <div
                                     className="text-xs font-medium text-gray-500 flex flex-row items-center mr-2"
@@ -109,7 +115,7 @@ const BlogsCard = (props) => {
                                         d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
                                     ></path>
                                     </svg>
-                                    <span>25</span>
+                                    <span></span>
                                 </div>
 
                                 <div
@@ -129,7 +135,7 @@ const BlogsCard = (props) => {
                                         d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"
                                     ></path>
                                     </svg>
-                                    <span>7</span>
+                                    <span></span>
                                 </div>
                                 </div>
                             </div>
