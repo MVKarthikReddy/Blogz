@@ -36,7 +36,7 @@ const MyBlogs = () => {
 
     },[])
     return(
-        <div className="-z-10 absolute w-11/12 sm:w-full right-0 top-28 bg-gray-900 bg-opacity-25 h-screen">
+        <div className="-z-10 absolute w-11/12 sm:w-full right-0 top-28 bg-gray-900 bg-opacity-25">
             {
                 state.currentUser ? blogs ?
                 <BlogsCard blogs={blogs} title={"Your"} source={"my_blogs"}/> :

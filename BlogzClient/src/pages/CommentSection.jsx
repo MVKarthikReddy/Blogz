@@ -34,11 +34,17 @@ const CommentSection = ({postId,userId,user}) => {
                           "Content-Type": "application/json",
                         },
                     }
-
                 )
                 const response = await res.json()
-                setComments(response)
+                if(response.message == 0){
+                    setComments([])
+                }
+                else{
+                    setComments(response)
+                }
                 
+                console.log(response)
+
             } catch (error) {
                 console.log(error)
             }    
@@ -46,12 +52,16 @@ const CommentSection = ({postId,userId,user}) => {
         fetchComments()
         
         
-
-        
         
         // Listen for new comments via Socket.io
         socket.on('new-comment', (newComment) => {
-          setComments((prevComments) => [newComment,...prevComments]);
+            if(comments.length>0){
+                setComments((prevComments) => [newComment,...prevComments]);
+            }
+            else{
+                setComments([newComment]);
+            }
+                
         });
     
         // Cleanup on component unmount
