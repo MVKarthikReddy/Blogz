@@ -8,10 +8,11 @@ import BlogViewer from './BlogReader';
 import CommentSection from '../pages/CommentSection';
 import io from 'socket.io-client';
 import postRequest from '../Utils/api/PostRequest';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import notify from '../Utils/notifier/Notifier';
 import { ToastContainer } from 'react-toastify';
 import deleteRequest from '../Utils/api/deleteRequest';
+import { setCount } from '../redux/user/commentSlice';
 
 
 const socket = io(`${import.meta.env.VITE_BACKEND_API_URL}`);
@@ -24,6 +25,10 @@ const Blogs = () => {
     const params = useParams()
 
     const state = useSelector((state) => state.user)
+    const count = useSelector((state) => state.comments.count);
+
+    const dispatch = useDispatch()
+
 
     const [loading,setLoading] = useState(false)
     const [comments,setComments] = useState(null)
@@ -75,6 +80,8 @@ const Blogs = () => {
             try {
                 const res = await getRequest(`/api/comments/${params.id}`)
                 setComments(res)
+                dispatch(setCount(res.length))
+                
                 
             } catch (error) {
                 console.log(error)
@@ -207,7 +214,7 @@ const Blogs = () => {
 
                             />
                             <span className='px-1'>
-                                {comments.length}
+                                {count}
                             </span>
                     </label>
                     <label className='mx-5 flex flex-row items-center text-center'>

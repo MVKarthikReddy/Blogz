@@ -4,7 +4,8 @@ import io from 'socket.io-client';
 import axios from 'axios';
 import getRequest from '../Utils/api/getRequest';
 import postRequest from '../Utils/api/PostRequest';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { incrementCount,decrementCount } from '../redux/user/commentSlice'
 import notify from '../Utils/notifier/Notifier';
 import { ToastContainer } from 'react-toastify';
 
@@ -12,8 +13,8 @@ import { ToastContainer } from 'react-toastify';
 const socket = io(`${import.meta.env.VITE_BACKEND_API_URL}`);
 const CommentSection = ({postId,userId,user}) => {
 
-
     const state = useSelector((state) => state.user)
+    const dispatch = useDispatch()
 
     const [comments, setComments] = useState([]);
     const [comment, setComment] = useState('');
@@ -24,15 +25,27 @@ const CommentSection = ({postId,userId,user}) => {
 
         // Fetch existing comments for the post
         const fetchComments = async () => {
+
             try {
-                const res = await getRequest(`/api/comments/${postId}`)
-                setComments(res)
+                const res = await fetch(`${import.meta.env.VITE_BACKEND_API_URL}/api/comments/${postId}`,
+                    {
+                        method: "GET",
+                        headers: {
+                          "Content-Type": "application/json",
+                        },
+                    }
+
+                )
+                const response = await res.json()
+                setComments(response)
                 
             } catch (error) {
                 console.log(error)
             }    
         }
         fetchComments()
+        
+        
 
         
         
@@ -63,13 +76,14 @@ const CommentSection = ({postId,userId,user}) => {
         if (comment.trim()) {
           const newComment = {
             postId,
-            userId,
             comment,
           };
           try {
             const res = await postRequest(newComment, '/api/comments/post', state.currentUser.token);
+
             if(res.ok)
             {
+                dispatch(incrementCount())
                 notify('Comment Posted.',201)
             }else{
                 notify('You already commented!',res.status)
@@ -105,17 +119,17 @@ const CommentSection = ({postId,userId,user}) => {
                         Post comment
                     </button>
                 </form>
-                {(comments) ? comments.map((com,index) => (
+                {(comments.length>0) ? comments.map((com,index) => (
                     <article key={index} className="p-6 mb-3 text-base bg-white border-t border-gray-200 dark:border-gray-700 dark:bg-gray-900">
                         <footer className="flex justify-between items-center mb-2">
                             <div className="flex items-center">
                                 <p className="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white font-semibold">
                                     <img
                                         className="mr-2 w-6 h-6 rounded-full"
-                                        src={user.profilePicture}
-                                        alt={user.username} 
+                                        src={com.profilePicture}
+                                        alt={com.username} 
                                         />
-                                        {user.username}
+                                        {com.username}
                                 </p>
                                 <p className="text-sm text-gray-600 dark:text-gray-400"><time dateTime="2022-03-12"
                                         title="March 12th, 2022">{new Date(com.createdAt).toLocaleString()}</time></p>

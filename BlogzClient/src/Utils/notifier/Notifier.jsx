@@ -12,8 +12,7 @@ const options = {
     theme: "light",
   }
 const notify = (message, type) => {
-    // console.log("Error message:",message)
-    console.log(message, type)
+    
     const msg = message || "Bad Request!"
     switch (type) {
         case 200:

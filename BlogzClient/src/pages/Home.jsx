@@ -26,7 +26,7 @@ export const Home = () => {
         setTechBlogs(data);
         fetchSportsBlogs();
       } catch (error) {
-        console.log("Error getting offer listings", error);
+        console.log("Error getting Blogs", error);
       }
     };
 
