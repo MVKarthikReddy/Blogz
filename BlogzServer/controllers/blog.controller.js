@@ -6,14 +6,11 @@ const Blog = require('../models/blog.model')
 
 const createBlog = async (req,res,next) => {
     const body = req.body
-    console.log('user',req.user.id)
 
     try {
         const newBody = {...body, userRef: req.user.id} // adding user reference using destructuring
-        console.log('Body : ',newBody) 
 
         const blog = await Blog.create(newBody) // creating a new Blog
-        console.log('Blog :',blog)
 
         return res.status(201).json(blog) 
         

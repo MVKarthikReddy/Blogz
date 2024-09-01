@@ -5,7 +5,6 @@ const errorHandler = require('../utils/errorHandler.js');
 
 //It's for signup page 
 const signup = async (req, res, next) => {
-    // console.log(req.body,req.body.data)
     const { username, email, password } = req.body;
        
       if(!username || !email || !password || username==='' || email ==='' || password===''){
@@ -29,7 +28,6 @@ const signup = async (req, res, next) => {
 
   const signin =async (req,res,next) => {
     const { email, password } =req.body;
-    // console.log(process.env.JWT_SECRET)
     if(!email || !password || email ==='' || password===''){
       next(errorHandler(400,'All fields are required'));
    }

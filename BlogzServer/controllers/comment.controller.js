@@ -1,23 +1,28 @@
 const Comment = require('../models/comment.model')
+const User = require('../models/user.model')
+const {getUser} = require('./user.controller')
 
 // Posting comment for a blog
 const postComment = async (req, res) => {
-    const { postId, userId, comment } = req.body;
+    const { postId, comment } = req.body;
+    userId = req.user.id
   
     try {
       const comments = await Comment.find({ userId, postId })
-      console.log(comments)
       if(comments.length==0){
 
         const newComment = new Comment({ postId, userId, comment });
         await newComment.save();
 
-        req.io.emit('new-comment', newComment); // to emit the new comment event to all connected clients using Socket.io
+        const user = await User.findById((newComment.userId).toHexString())
 
-        res.status(201).json(newComment);
+        const cmt = {...newComment._doc,username:user.username,profilePicture:user.profilePicture}
+
+        req.io.emit('new-comment', cmt); // to emit the new comment event to all connected clients using Socket.io
+
+        return res.status(201).json(cmt);
 
       }
-      console.log('out side if')
       
      res.status(403).json('You already commented!')
       
@@ -31,11 +36,22 @@ const postComment = async (req, res) => {
 
 // Getting all the comments of a blog
 const getComments = async (req, res) => {
-    
+
     try {
       const comments = await Comment.find({ postId: req.params.postId }).sort({ createdAt: -1 });
+      if(comments.length>0){
+          var promises = comments.map(async (comment) => {
 
-      res.json(comments);
+          const user = await User.findById((comment.userId).toHexString())
+          const { username, profilePicture, ...rest } = user._doc;
+
+          return {...comment._doc,username,profilePicture}
+        })
+        
+      }
+      const cmt = await Promise.all(promises)
+
+      res.json(cmt);
     } catch (err) {
       res.status(500).json({ message: 'Server error' });
     }

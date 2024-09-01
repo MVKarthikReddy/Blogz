@@ -13,7 +13,6 @@ const errorHandler = require('../utils/errorHandler.js');
 
   // For updating the user details
    const updateUser =async (req,res,next)=>{
-    console.log(req.params.id,req.body)
     
     if (req.user.id !== req.params.id) {
          return next(errorHandler(403, 'You are not allowed to update this user'));
@@ -49,7 +48,6 @@ const errorHandler = require('../utils/errorHandler.js');
     }
     /* -------------------------- */
     try {
-      // console.log(req.body)
         const updatedUser =await User.findByIdAndUpdate(
           
             req.params.id,
@@ -64,8 +62,6 @@ const errorHandler = require('../utils/errorHandler.js');
             },{new :true} //new update 
         );
         const user = await User.findById(req.params.id);
-        console.log('User :',user)
-        console.log('updated User',updatedUser)
         const { password, ...rest } = updatedUser._doc;//seperate password and rest
         res.status(200).json(rest);
         
@@ -121,7 +117,6 @@ const getUserBlogs =async (req,res,next) =>{
 /* ---getUser if the user is true then show contact */
 
 const getUser = async (req, res, next) => {
-  // console.log(req.params.id)
   try {
 
     const user = await User.findById(req.params.id);

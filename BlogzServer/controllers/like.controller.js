@@ -37,7 +37,6 @@ const likePost = async (req, res) => {
 
     // Increment the like count on the post
     const post = await Blog.findById(postId);
-    console.log(post)
     post.likesCount += 1;
     await post.save();
 
@@ -55,7 +54,6 @@ const unlikePost = async (req, res) => {
   const { postId } = req.params;
   const userId = req.user.id;
 
-  console.log(postId,userId)
 
   try {
     // Check if the user has liked the post
