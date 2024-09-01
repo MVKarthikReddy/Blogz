@@ -15,9 +15,8 @@ const LoginNSignup = (props) => {
 
     const navigate = useNavigate()
     const location = useLocation()
-    console.log(location,location.url)
 
-    const {loading,error:errorMessage} =useSelector(state => state.user);
+    // const {loading,error:errorMessage} =useSelector(state => state.user);
 
     //why we  are using selector here? because we want to access 
     const dispatch =useDispatch();
