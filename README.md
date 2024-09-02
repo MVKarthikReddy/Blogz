@@ -101,7 +101,7 @@ The application should now be running on `http://localhost:5173`.
   - React.js
   - Redux for state management
   - Editor.js for rich text editing
-  - CSS Modules / SASS for styling
+  - CSS Modules(Tailwind)
 
 - **Backend:**
   - Node.js with Express.js
