@@ -22,6 +22,7 @@
 - **Likes & Comments:** Users can like and comment on blogs, with counts dynamically updated.
 - **Responsive Design:** Optimized for all devices.
 - **Rich Text Editor:** Use Editor.js for formatting blog content.
+- **Firebase:** To store images.
 
 ## Demo
 
