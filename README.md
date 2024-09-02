@@ -126,7 +126,8 @@ The application should now be running on `http://localhost:5173`.
 
 ### Likes
 
-- **POST /api/likes/:blogId** - Like a blog
+- **POST /api/likes/like/:blogId** - Like a blog
+- **POST /api/likes/unlike/:blogId** - Unlike a blog
 
 ### Comments
 
